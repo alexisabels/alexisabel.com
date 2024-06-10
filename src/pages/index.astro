@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Theme from "../components/Theme.astro";
+import SContainer from "../components/SContainer.astro";
+import Presentation from "../components/Presentation.astro";
+const links = [
+  { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "Github" },
+  {
+    href: "https://linkedin.com/alexisabel",
+    icon: "LinkedInIcon",
+    alt: "LinkedIn",
+  },
+  { href: "mailto:isabelsanchezalex@gmail.com", icon: "MailIcon", alt: "Mail" },
+  { href: "../public/cv.pdf", icon: "CVIcon", alt: "CV" },
+];
+---
+
+<Layout title="Bienvenido a mi portfolio!.">
+  <main>
+    <Theme />
+    <SContainer>
+      <Presentation
+        name="Alejandro de Isabel"
+        description="Desarrollador de Aplicaciones Web"
+        location="Toledo"
+        imageUrl="https://media.discordapp.net/attachments/945302267744116766/1249775196894662727/perfil.png?ex=6668875a&is=666735da&hm=6c078860a86b4823fd6f2532a0e5a0d79b3284334d75082c2af063d00c4d404f&=&format=webp&quality=lossless&width=676&height=676"
+        links={links}
+      />
+    </SContainer>
+  </main>
+</Layout>

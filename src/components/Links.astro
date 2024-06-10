@@ -1,0 +1,40 @@
+---
+import CVIcon from "./icons/CVIcon.astro";
+import GithubIcon from "./icons/GithubIcon.astro";
+import LinkedInIcon from "./icons/LinkedInIcon.astro";
+import MailIcon from "./icons/MailIcon.astro";
+
+interface Props {
+  links: Array<{ href: string; icon: string; alt: string }>;
+}
+
+const { links } = Astro.props;
+
+const icons: { [key: string]: (_props: Record<string, any>) => any } = {
+  GithubIcon: GithubIcon,
+  LinkedInIcon: LinkedInIcon,
+  MailIcon: MailIcon,
+  CVIcon: CVIcon,
+};
+---
+
+<div class="flex space-x-4">
+  {
+    links.map((link) => {
+      const IconComponent = icons[link.icon];
+      return (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-lg borde-gray-400 dark:border-gray-700 hover:bg:gray-100 transition duration-150 hover:scale-105 dark:hover:bg-gray-800"
+        >
+          <IconComponent
+            alt={link.alt}
+            class="size-6 dark:text-white/80 text-black"
+          />
+        </a>
+      );
+    })
+  }
+</div>
