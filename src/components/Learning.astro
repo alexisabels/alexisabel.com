@@ -1,0 +1,50 @@
+---
+import KotlinIcon from "./icons/KotlinIcon.astro";
+import NextJSIcon from "./icons/NextJSIcon.astro";
+import AstroIcon from "./icons/AstroIcon.astro";
+import AndroidIcon from "./icons/AndroidIcon.astro";
+import ElectronIcon from "./icons/ElectronIcon.astro";
+import TSIcon from "./icons/TSIcon.astro";
+import TailwindIcon from "./icons/TailwindIcon.astro";
+const SKILLS = [
+  { name: "Kotlin", icon: KotlinIcon, url: "https://kotlinlang.org/" },
+  { name: "Astro", icon: AstroIcon, url: "https://astro.build/" },
+  { name: "Android", icon: AndroidIcon, url: "https://www.android.com/" },
+  { name: "Electron", icon: ElectronIcon, url: "https://www.electronjs.org/" },
+  { name: "Tailwind", icon: TailwindIcon, url: "https://tailwindcss.com/" },
+  { name: "Next.js", icon: NextJSIcon, url: "https://nextjs.org/" },
+  { name: "TypeScript", icon: TSIcon, url: "https://www.typescriptlang.org/" },
+];
+---
+
+<style>
+  .skill-name {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .skill-container:hover .skill-name {
+    opacity: 1;
+  }
+</style>
+
+<div class="container mx-auto mt-8 space-y-10">
+  <div class="flex gap-x-10 gap-y-1 flex-wrap justify-start">
+    {
+      SKILLS.map((skill) => (
+        <a
+          href={skill.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center skill-container"
+        >
+          <div class="size-28 bg-white dark:bg-gray-700 rounded-xl shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+            <skill.icon class="size-20" />
+          </div>
+          <p class="mt-2 text-center text-gray-800 dark:text-gray-200 text-md font-semibold skill-name">
+            {skill.name}
+          </p>
+        </a>
+      ))
+    }
+  </div>
+</div>

@@ -7,6 +7,7 @@ import Skills from "../components/Skills.astro";
 import Experience from "../components/Experience.astro";
 import About from "../components/About.astro";
 import Projects from "../components/Projects.astro";
+import Learning from "../components/Learning.astro";
 
 const links = [
   { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "Github" },
@@ -32,42 +33,40 @@ const links = [
         links={links}
       />
     </SContainer>
+
     <SContainer>
       <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
         &lt;Sobre mí /&gt;
       </h1>
-
       <About />
-      <SContainer />
-      <SContainer>
-        <h1
-          class="text-4xl font-bold select-none dark:text-white text-gray-900"
-        >
-          &lt;Experiencia Laboral /&gt;
-        </h1>
-        <Experience />
-      </SContainer>
-
-      <SContainer>
-        <h1
-          class="text-4xl font-bold select-none dark:text-white text-gray-900"
-        >
-          &lt;Skills /&gt;
-        </h1>
-
-        <Skills />
-        <SContainer />
-        <SContainer>
-          <h1
-            class="text-4xl font-bold select-none dark:text-white text-gray-900"
-          >
-            &lt;Proyectos /&gt;
-          </h1>
-
-          <Projects />
-          <SContainer />
-        </SContainer>
-      </SContainer>
     </SContainer>
-  </main></Layout
->
+
+    <SContainer>
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Experiencia Laboral /&gt;
+      </h1>
+      <Experience />
+    </SContainer>
+
+    <SContainer>
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Skills /&gt;
+      </h1>
+      <Skills />
+    </SContainer>
+
+    <SContainer>
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Proyectos /&gt;
+      </h1>
+      <Projects />
+    </SContainer>
+
+    <SContainer>
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Aprendiendo /&gt;
+      </h1>
+      <Learning />
+    </SContainer>
+  </main>
+</Layout>
