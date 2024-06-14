@@ -1,11 +1,43 @@
 ---
+import AzureIcon from "./icons/AzureIcon.astro";
+import BootstrapIcon from "./icons/BootstrapIcon.astro";
+import CSSIcon from "./icons/CSSIcon.astro";
+import FigmaIcon from "./icons/FigmaIcon.astro";
+import GitlabIcon from "./icons/GitlabIcon.astro";
 import JSIcon from "./icons/JSIcon.astro";
+import JavaIcon from "./icons/JavaIcon.astro";
+import OracleIcon from "./icons/OracleIcon.astro";
+import ReactIcon from "./icons/ReactIcon.astro";
+import TailwindIcon from "./icons/TailwindIcon.astro";
+import UbuntuIcon from "./icons/UbuntuIcon.astro";
+import AWSIcon from "./icons/AWSIcon.astro";
+import MaterialIcon from "./icons/MaterialUiIcon.astro";
+import MySQLIcon from "./icons/MySQLIcon.astro";
+import ChakraUiIcon from "./icons/ChakraUiIcon.astro";
+import JestIcon from "./icons/JestIcon.astro";
+import ReactRouterIcon from "./icons/ReactRouterIcon.astro";
+import RTLIcon from "./icons/RTLIcon.astro";
 
 const SKILLS = [
-  {
-    name: "JavaScript",
-    icon: JSIcon,
-  },
+  { name: "React", icon: ReactIcon },
+  { name: "Java", icon: JavaIcon },
+  { name: "JavaScript", icon: JSIcon },
+  { name: "Material UI", icon: MaterialIcon },
+  { name: "Jest", icon: JestIcon },
+  { name: "Chakra UI", icon: ChakraUiIcon },
+  { name: "Azure", icon: AzureIcon },
+  { name: "Bootstrap", icon: BootstrapIcon },
+  { name: "Figma", icon: FigmaIcon },
+  { name: "Gitlab", icon: GitlabIcon },
+  { name: "Ubuntu", icon: UbuntuIcon },
+  { name: "Tailwind", icon: TailwindIcon },
+  { name: "Oracle", icon: OracleIcon },
+  { name: "CSS", icon: CSSIcon },
+  { name: "React Router", icon: ReactRouterIcon },
+  { name: "AWS", icon: AWSIcon },
+  { name: "React Testing", icon: RTLIcon },
+
+  { name: "MySQL", icon: MySQLIcon },
 ];
 ---
 
@@ -20,7 +52,7 @@ const SKILLS = [
 </style>
 
 <div class="container mx-auto mt-8 space-y-10">
-  <div class="flex gap-8 flex-wrap justify-start">
+  <div class="flex gap-10 flex-wrap justify-start">
     {
       SKILLS.map((skill) => (
         <div class="flex flex-col items-center skill-container">
