@@ -1,63 +1,127 @@
-<div class="bg-gray-100 w-full min-h-screen gap-4 flex-wrap flex justify-center items-center">
-    <!-- Card -->
-    <div class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-      <!-- Image -->
-      <img class="h-40 object-cover rounded-xl" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-      <div class="p-2">
-        <!-- Heading -->
-        <h2 class="font-bold text-lg mb-2">Heading</h2>
-        <!-- Description -->
-        <p class="text-sm text-gray-600">Simple Yet Beautiful Card Design with TaiwlindCss. Subscribe to our Youtube channel for more ...</p>
+---
+import FirebaseIcon from "./icons/FirebaseIcon.astro";
+import GithubIcon from "./icons/GithubIcon.astro";
+import JSIcon from "./icons/JSIcon.astro";
+import LinkIcon from "./icons/LinkIcon.astro";
+import MaterialUiIcon from "./icons/MaterialUiIcon.astro";
+import ReactIcon from "./icons/ReactIcon.astro";
+
+const TAGS = {
+  REACT: {
+    name: "React",
+    class: "bg-blue-600 text-white",
+    icon: ReactIcon,
+  },
+  FIRE: {
+    name: "Firebase",
+    class: "bg-gray-600 text-white",
+    icon: FirebaseIcon,
+  },
+  MUI: {
+    name: "Material UI",
+    class: "bg-gray-900 text-white",
+    icon: MaterialUiIcon,
+  },
+  JS: {
+    name: "JavaScript",
+    class: "bg-gray-800 text-white",
+    icon: JSIcon,
+  },
+};
+const PROJECTS = [
+  {
+    title: "Waving Social",
+    description:
+      "red social hecha con React, con funcionalidades como creación de posts, varias timelines, comentarios, perfiles, seguimiento... gestión de autenticación y base de datos mediante Firebase.",
+    github: "https://github.com/alexisabels/wavingsocial",
+    link: "https://wavingsocial.web.app/",
+    image: "./waving.png",
+    tags: [TAGS.REACT, TAGS.FIRE, TAGS.MUI],
+  },
+  {
+    title: "Waving Social",
+    description: "dlfkjasdhflaksjhdflksjdhfalsokdjfhk",
+    github: "https://github.com/alexisabels/wavingsocial",
+    image:
+      "https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    tags: [TAGS.REACT],
+  },
+  {
+    title: "Waving Social",
+    description: "dlfkjasdhflaksjhdflksjdhfalsokdjfhk",
+    github: "https://github.com/alexisabels/wavingsocial",
+    image:
+      "https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    tags: [TAGS.REACT],
+  },
+  {
+    title: "Waving Social",
+    description: "dlfkjasdhflaksjhdflksjdhfalsokdjfhk",
+    github: "https://github.com/alexisabels/wavingsocial",
+    image:
+      "https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    tags: [TAGS.REACT],
+  },
+];
+---
+
+<div
+  class="grid grid-cols-1 mt-5 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+>
+  {
+    PROJECTS.map(({ image, title, description, tags, github, link }) => (
+      <div class="bg-white dark:bg-gray-800 transition p-5 rounded-md shadow-sm flex flex-col justify-between">
+        <div class="text-center">
+          <img
+            class="w-full h-56 rounded-lg object-cover mb-6"
+            src={image}
+            alt={title}
+            loading="lazy"
+          />
+          <h3 class="text-2xl font-bold mb-2 text-black dark:text-white ">
+            {title}
+          </h3>
+          <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
+            {tags.map((tag) => (
+              <span
+                class={`flex items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
+              >
+                <tag.icon class="size-4" />
+                {tag.name}
+              </span>
+            ))}
+          </div>
+          <p class="text-gray-800 dark:text-white text-center mb-4 ">
+            {description}
+          </p>
+        </div>
+        <div class="mt-auto flex items-center justify-center gap-5">
+          {github && (
+            <a
+              href={github}
+              role="link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="  flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300"
+            >
+              <GithubIcon class="size-5 mr-2" />
+              <span>Código</span>
+            </a>
+          )}
+          {link && (
+            <a
+              href={link}
+              role="link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="  flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300"
+            >
+              <LinkIcon class="size-5 mr-2" />
+              <span>Enlace</span>
+            </a>
+          )}
+        </div>
       </div>
-      <!-- CTA -->
-      <div class="m-2">
-        <a role="button" href="#" class="text-white bg-purple-600 px-3 py-1 rounded-md hover:bg-purple-700">Learn More</a>
-      </div>
-    </div>
-    <!-- Card -->
-    <div class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-      <!-- Image -->
-      <img class="h-40 object-cover rounded-xl" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-      <div class="p-2">
-        <!-- Heading -->
-        <h2 class="font-bold text-lg mb-2">Heading</h2>
-        <!-- Description -->
-        <p class="text-sm text-gray-600">Simple Yet Beautiful Card Design with TaiwlindCss. Subscribe to our Youtube channel for more ...</p>
-      </div>
-      <!-- CTA -->
-      <div class="m-2">
-        <a role="button" href="#" class="text-white bg-sky-500 px-3 py-1 rounded-md hover:bg-purple-700">Learn More</a>
-      </div>
-    </div>
-    <!-- Card -->
-    <div class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-      <!-- Image -->
-      <img class="h-40 object-cover rounded-xl" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-      <div class="p-2">
-        <!-- Heading -->
-        <h2 class="font-bold text-lg mb-2">Heading</h2>
-        <!-- Description -->
-        <p class="text-sm text-gray-600">Simple Yet Beautiful Card Design with TaiwlindCss. Subscribe to our Youtube channel for more ...</p>
-      </div>
-      <!-- CTA -->
-      <div class="m-2">
-        <a role="button" href="#" class="text-white bg-green-500 px-3 py-1 rounded-md hover:bg-purple-700">Learn More</a>
-      </div>
-    </div>
-    <!-- Card -->
-    <div class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
-      <!-- Image -->
-      <img class="h-40 object-cover rounded-xl" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-      <div class="p-2">
-        <!-- Heading -->
-        <h2 class="font-bold text-lg mb-2">Heading</h2>
-        <!-- Description -->
-        <p class="text-sm text-gray-600">Simple Yet Beautiful Card Design with TaiwlindCss. Subscribe to our Youtube channel for more ...</p>
-      </div>
-      <!-- CTA -->
-      <div class="m-2">
-        <a role="button" href="#" class="text-white bg-yellow-500 px-3 py-1 rounded-md hover:bg-purple-700">Learn More</a>
-      </div>
-    </div>
-  </div>
-  
+    ))
+  }
+</div>
