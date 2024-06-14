@@ -20,22 +20,29 @@ const { name, description, location, imageUrl, links } = Astro.props;
     class="md:flex-1 flex flex-col items-center md:items-start text-center md:text-left"
   >
     <div class="flex flex-col md:flex-row items-center md:items-start">
-      <h1
-        class="text-4xl bg-gradient-to-l from-indigo-500 via-red-500 to-blue-500 text-transparent bg-clip-text font-bold"
-      >
+      <h1 class="text-7xl dark:text-white text-black bg-clip-text font-bold">
         {name}
       </h1>
     </div>
-    <p class="text-lg dark:text-white text-gray-950 mt-4">{description}</p>
-    <div class="flex items-center mt-4 text-gray-600 dark:text-gray-300">
+    <p class="text-2xl dark:text-white text-black mt-4">{description}</p>
+    <div class="flex items-center mt-4 text-gray-700 dark:text-gray-300">
       <MapIcon class="size-6 mr-2" />
-      <span>{location}</span>
+      <a
+        href="https://www.google.com/maps/place/Toledo/@39.84986,-4.1105338,12z/data=!4m6!3m5!1s0xd6a7179438c6461:0x30340f3be4bcc00!8m2!3d39.739778!4d-4.2333355!16zL20vMDEyNDlf?entry=ttu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-black dark:text-white">{location}</a
+      >
     </div>
     <div class="mt-4">
       <Links {links} />
     </div>
   </div>
-  <div class="md:w-48 w 32 h-auto">
-    <img src={imageUrl} class="rounded-2xl object-cover" alt={name} />
+  <div class="md:w-60 w-48 h-auto">
+    <img
+      src={imageUrl}
+      class="rounded-full border dark:border-gray-300 dark:grayscale-0 border-gray-500 object-cover grayscale"
+      alt={name}
+    />
   </div>
 </div>

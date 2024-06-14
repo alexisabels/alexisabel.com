@@ -3,6 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import Theme from "../components/Theme.astro";
 import SContainer from "../components/SContainer.astro";
 import Presentation from "../components/Presentation.astro";
+import Skills from "../components/Skills.astro";
+import Experience from "../components/Experience.astro";
+
 const links = [
   { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "Github" },
   {
@@ -20,12 +23,28 @@ const links = [
     <Theme />
     <SContainer>
       <Presentation
-        name="Alejandro de Isabel"
+        name="Alejandro Isabel"
         description="Desarrollador de Aplicaciones Web"
         location="Toledo"
-        imageUrl="https://media.discordapp.net/attachments/945302267744116766/1249775196894662727/perfil.png?ex=6668875a&is=666735da&hm=6c078860a86b4823fd6f2532a0e5a0d79b3284334d75082c2af063d00c4d404f&=&format=webp&quality=lossless&width=676&height=676"
+        imageUrl="./nueva.png"
         links={links}
       />
+    </SContainer>
+
+    <SContainer>
+      <h1 class="text-5xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Experiencia Laboral /&gt;
+      </h1>
+      <Experience />
+    </SContainer>
+
+    <SContainer>
+      <h1 class="text-5xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Skills /&gt;
+      </h1>
+
+      <Skills />
+      <SContainer />
     </SContainer>
   </main>
 </Layout>
