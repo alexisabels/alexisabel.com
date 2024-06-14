@@ -6,6 +6,7 @@ import Presentation from "../components/Presentation.astro";
 import Skills from "../components/Skills.astro";
 import Experience from "../components/Experience.astro";
 import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
 
 const links = [
   { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "Github" },
@@ -48,12 +49,18 @@ const links = [
 
     <SContainer>
       <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Skills /&gt;
+      &lt;Skills /&gt;
       </h1>
 
       <Skills />
       <SContainer />
-      
+      <SContainer>
+        <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Proyectos /&gt;
+        </h1>
+  
+        <Projects />
+        <SContainer />
     </SContainer>
   </main>
 </Layout>
