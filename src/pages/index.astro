@@ -16,7 +16,7 @@ const links = [
     alt: "LinkedIn",
   },
   { href: "mailto:isabelsanchezalex@gmail.com", icon: "MailIcon", alt: "Mail" },
-  { href: "../public/cv.pdf", icon: "CVIcon", alt: "CV" },
+  { href: "./cv.pdf", icon: "CVIcon", alt: "CV" },
 ];
 ---
 
@@ -30,7 +30,6 @@ const links = [
         location="Toledo"
         imageUrl="./nueva.png"
         links={links}
-
       />
     </SContainer>
     <SContainer>
@@ -40,27 +39,35 @@ const links = [
 
       <About />
       <SContainer />
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Experiencia Laboral /&gt;
-      </h1>
-      <Experience />
-    </SContainer>
-
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-      &lt;Skills /&gt;
-      </h1>
-
-      <Skills />
-      <SContainer />
       <SContainer>
-        <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Proyectos /&gt;
+        <h1
+          class="text-4xl font-bold select-none dark:text-white text-gray-900"
+        >
+          &lt;Experiencia Laboral /&gt;
         </h1>
-  
-        <Projects />
+        <Experience />
+      </SContainer>
+
+      <SContainer>
+        <h1
+          class="text-4xl font-bold select-none dark:text-white text-gray-900"
+        >
+          &lt;Skills /&gt;
+        </h1>
+
+        <Skills />
         <SContainer />
+        <SContainer>
+          <h1
+            class="text-4xl font-bold select-none dark:text-white text-gray-900"
+          >
+            &lt;Proyectos /&gt;
+          </h1>
+
+          <Projects />
+          <SContainer />
+        </SContainer>
+      </SContainer>
     </SContainer>
-  </main>
-</Layout>
+  </main></Layout
+>
