@@ -5,6 +5,7 @@ import SContainer from "../components/SContainer.astro";
 import Presentation from "../components/Presentation.astro";
 import Skills from "../components/Skills.astro";
 import Experience from "../components/Experience.astro";
+import About from "../components/About.astro";
 
 const links = [
   { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "Github" },
@@ -18,7 +19,7 @@ const links = [
 ];
 ---
 
-<Layout title="Bienvenido a mi portfolio!.">
+<Layout title="Alejandro Isabel">
   <main>
     <Theme />
     <SContainer>
@@ -28,23 +29,31 @@ const links = [
         location="Toledo"
         imageUrl="./nueva.png"
         links={links}
+
       />
     </SContainer>
-
     <SContainer>
-      <h1 class="text-5xl font-bold select-none dark:text-white text-gray-900">
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
+        &lt;Sobre mí /&gt;
+      </h1>
+
+      <About />
+      <SContainer />
+    <SContainer>
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
         &lt;Experiencia Laboral /&gt;
       </h1>
       <Experience />
     </SContainer>
 
     <SContainer>
-      <h1 class="text-5xl font-bold select-none dark:text-white text-gray-900">
+      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
         &lt;Skills /&gt;
       </h1>
 
       <Skills />
       <SContainer />
+      
     </SContainer>
   </main>
 </Layout>

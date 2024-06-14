@@ -25,8 +25,6 @@ const SKILLS = [
     url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   },
   { name: "Material UI", icon: MaterialIcon, url: "https://mui.com/" },
-  { name: "Jest", icon: JestIcon, url: "https://jestjs.io/" },
-  { name: "Chakra UI", icon: ChakraUiIcon, url: "https://chakra-ui.com/" },
   { name: "Azure", icon: AzureIcon, url: "https://azure.microsoft.com/" },
   { name: "Bootstrap", icon: BootstrapIcon, url: "https://getbootstrap.com/" },
   { name: "Figma", icon: FigmaIcon, url: "https://www.figma.com/" },
@@ -40,6 +38,8 @@ const SKILLS = [
     url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
   },
   { name: "AWS", icon: AWSIcon, url: "https://aws.amazon.com/" },
+  { name: "Jest", icon: JestIcon, url: "https://jestjs.io/" },
+
   {
     name: "React Testing",
     icon: RTLIcon,
@@ -59,7 +59,7 @@ const SKILLS = [
 </style>
 
 <div class="container mx-auto mt-8 space-y-10">
-  <div class="flex gap-10 flex-wrap justify-start">
+  <div class="flex gap-x-10 gap-y-1 flex-wrap justify-start">
     {
       SKILLS.map((skill) => (
         <a
@@ -68,8 +68,8 @@ const SKILLS = [
           rel="noopener noreferrer"
           class="flex flex-col items-center skill-container"
         >
-          <div class="size-36 bg-white dark:bg-gray-700 rounded-md shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
-            <skill.icon class="size-28" />
+          <div class="size-28 bg-white dark:bg-gray-700 rounded-xl shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+            <skill.icon class="size-20" />
           </div>
           <p class="mt-2 text-center text-gray-800 dark:text-gray-200 text-md font-semibold skill-name">
             {skill.name}
