@@ -12,32 +12,39 @@ import TailwindIcon from "./icons/TailwindIcon.astro";
 import UbuntuIcon from "./icons/UbuntuIcon.astro";
 import AWSIcon from "./icons/AWSIcon.astro";
 import MaterialIcon from "./icons/MaterialUiIcon.astro";
-import MySQLIcon from "./icons/MySQLIcon.astro";
 import ChakraUiIcon from "./icons/ChakraUiIcon.astro";
 import JestIcon from "./icons/JestIcon.astro";
-import ReactRouterIcon from "./icons/ReactRouterIcon.astro";
 import RTLIcon from "./icons/RTLIcon.astro";
 
 const SKILLS = [
-  { name: "React", icon: ReactIcon },
-  { name: "Java", icon: JavaIcon },
-  { name: "JavaScript", icon: JSIcon },
-  { name: "Material UI", icon: MaterialIcon },
-  { name: "Jest", icon: JestIcon },
-  { name: "Chakra UI", icon: ChakraUiIcon },
-  { name: "Azure", icon: AzureIcon },
-  { name: "Bootstrap", icon: BootstrapIcon },
-  { name: "Figma", icon: FigmaIcon },
-  { name: "Gitlab", icon: GitlabIcon },
-  { name: "Ubuntu", icon: UbuntuIcon },
-  { name: "Tailwind", icon: TailwindIcon },
-  { name: "Oracle", icon: OracleIcon },
-  { name: "CSS", icon: CSSIcon },
-  { name: "React Router", icon: ReactRouterIcon },
-  { name: "AWS", icon: AWSIcon },
-  { name: "React Testing", icon: RTLIcon },
-
-  { name: "MySQL", icon: MySQLIcon },
+  { name: "React", icon: ReactIcon, url: "https://reactjs.org/" },
+  { name: "Java", icon: JavaIcon, url: "https://www.oracle.com/java/" },
+  {
+    name: "JavaScript",
+    icon: JSIcon,
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  },
+  { name: "Material UI", icon: MaterialIcon, url: "https://mui.com/" },
+  { name: "Jest", icon: JestIcon, url: "https://jestjs.io/" },
+  { name: "Chakra UI", icon: ChakraUiIcon, url: "https://chakra-ui.com/" },
+  { name: "Azure", icon: AzureIcon, url: "https://azure.microsoft.com/" },
+  { name: "Bootstrap", icon: BootstrapIcon, url: "https://getbootstrap.com/" },
+  { name: "Figma", icon: FigmaIcon, url: "https://www.figma.com/" },
+  { name: "Gitlab", icon: GitlabIcon, url: "https://about.gitlab.com/" },
+  { name: "Ubuntu", icon: UbuntuIcon, url: "https://ubuntu.com/" },
+  { name: "Tailwind", icon: TailwindIcon, url: "https://tailwindcss.com/" },
+  { name: "Oracle", icon: OracleIcon, url: "https://www.oracle.com/cloud/" },
+  {
+    name: "CSS",
+    icon: CSSIcon,
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  },
+  { name: "AWS", icon: AWSIcon, url: "https://aws.amazon.com/" },
+  {
+    name: "React Testing",
+    icon: RTLIcon,
+    url: "https://testing-library.com/docs/react-testing-library/intro/",
+  },
 ];
 ---
 
@@ -55,14 +62,19 @@ const SKILLS = [
   <div class="flex gap-10 flex-wrap justify-start">
     {
       SKILLS.map((skill) => (
-        <div class="flex flex-col items-center skill-container">
+        <a
+          href={skill.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center skill-container"
+        >
           <div class="size-36 bg-white dark:bg-gray-700 rounded-md shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
             <skill.icon class="size-28" />
           </div>
           <p class="mt-2 text-center text-gray-800 dark:text-gray-200 text-md font-semibold skill-name">
             {skill.name}
           </p>
-        </div>
+        </a>
       ))
     }
   </div>

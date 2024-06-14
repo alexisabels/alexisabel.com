@@ -28,10 +28,18 @@ const { title } = Astro.props;
     font-family: monospace;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    margin: 0;
+    padding: 0;
   }
   body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    padding: 0 1rem;
+  }
+  @media (min-width: 768px) {
+    body {
+      padding: 0;
+    }
   }
 </style>
