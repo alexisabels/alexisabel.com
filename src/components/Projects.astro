@@ -2,14 +2,16 @@
 import FirebaseIcon from "./icons/FirebaseIcon.astro";
 import GithubIcon from "./icons/GithubIcon.astro";
 import JSIcon from "./icons/JSIcon.astro";
+import JavaIcon from "./icons/JavaIcon.astro";
 import LinkIcon from "./icons/LinkIcon.astro";
 import MaterialUiIcon from "./icons/MaterialUiIcon.astro";
+import OracleIcon from "./icons/OracleIcon.astro";
 import ReactIcon from "./icons/ReactIcon.astro";
 
 const TAGS = {
   REACT: {
     name: "React",
-    class: "bg-blue-600 text-white",
+    class: "bg-blue-900 text-white",
     icon: ReactIcon,
   },
   FIRE: {
@@ -27,40 +29,52 @@ const TAGS = {
     class: "bg-gray-800 text-white",
     icon: JSIcon,
   },
+  JAVA: {
+    name: "Java",
+    class: "bg-[#333] text-white",
+    icon: JavaIcon,
+  },
+  SQL: {
+    name: "SQL",
+    class: "bg-gray-200 text-black",
+    icon: OracleIcon,
+  },
 };
 const PROJECTS = [
   {
     title: "Waving Social",
     description:
       "Red social hecha con React, con funcionalidades como creación de posts, varias timelines, comentarios, perfiles, seguimiento... gestión de autenticación y base de datos mediante Firebase.",
-    github: "https://github.com/alexisabels/wavingsocial",
+    github: "https://github.com/alexisabels/waving",
     link: "https://wavingsocial.web.app/",
     image: "./waving.png",
     tags: [TAGS.REACT, TAGS.FIRE, TAGS.MUI],
   },
   {
-    title: "Waving Social",
-    description: "dlfkjasdhflaksjhdflksjdhfalsokdjfhk",
-    github: "https://github.com/alexisabels/wavingsocial",
-    image:
-      "https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    title: "The Cocktail DB",
+    description:
+      "Práctica de una aplicación web SPA basada en react sobre la API de TheCocktailDB. se muestran cócteles, con sus recetas e ingredientes. búsqueda de cócteles por nombre y por ingrediente.",
+    github: "https://github.com/alexisabels/thecocktaildb",
+    image: "./cocktail.png",
+    link: "https://thecocktaildb-jsx.vercel.app/",
     tags: [TAGS.REACT],
   },
   {
-    title: "Waving Social",
-    description: "dlfkjasdhflaksjhdflksjdhfalsokdjfhk",
-    github: "https://github.com/alexisabels/wavingsocial",
-    image:
-      "https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    tags: [TAGS.REACT],
+    title: "Biblioteca JSP",
+    description:
+      "Proyecto de gestión de Biblioteca con JSP y acceso a una base de datos en Oracle con JDBC. Incluye sistema de penalización. (Despliegue en proceso)",
+    github: "https://github.com/alexisabels/biblioteca-jsp",
+    image: "./biblioteca.png",
+    tags: [TAGS.JAVA, TAGS.SQL],
+    link: "https://biblioteca-jsp-production.up.railway.app/biblioteca/Prestamo.jsp",
   },
   {
-    title: "Waving Social",
-    description: "dlfkjasdhflaksjhdflksjdhfalsokdjfhk",
-    github: "https://github.com/alexisabels/wavingsocial",
-    image:
-      "https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    tags: [TAGS.REACT],
+    title: "Porra LaLiga",
+    description:
+      "Web JSP para consultar resultados de La Liga y realizar apuestas ficticias.",
+    github: "https://github.com/alexisabels/LALIGA",
+    image: "./laliga.png",
+    tags: [TAGS.JAVA, TAGS.SQL],
   },
 ];
 ---
