@@ -15,43 +15,52 @@ const TAGS = {
     name: "React",
     class: "bg-blue-900 text-white",
     icon: ReactIcon,
+    url: "https://reactjs.org/",
   },
   FIRE: {
     name: "Firebase",
     class: "bg-gray-600 text-white",
     icon: FirebaseIcon,
+    url: "https://firebase.google.com/",
   },
   MUI: {
     name: "Material UI",
     class: "bg-gray-900 text-white",
     icon: MaterialUiIcon,
+    url: "https://mui.com/",
   },
   JS: {
     name: "JavaScript",
     class: "bg-gray-800 text-white",
     icon: JSIcon,
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   },
   JAVA: {
     name: "Java",
     class: "bg-[#333] text-white",
     icon: JavaIcon,
+    url: "https://www.oracle.com/java/",
   },
   SQL: {
     name: "SQL",
     class: "bg-gray-200 text-black",
     icon: OracleIcon,
+    url: "https://www.oracle.com/database/what-is-sql.html",
   },
   ASTRO: {
     name: "Astro",
     class: "bg-blue-400 text-white",
     icon: AstroIcon,
+    url: "https://astro.build/",
   },
   TAILWIND: {
     name: "Tailwind",
     class: "bg-gray-200 text-black",
     icon: TailwindIcon,
+    url: "https://tailwindcss.com/",
   },
 };
+
 const PROJECTS = [
   {
     title: "Waving Social",
@@ -65,7 +74,7 @@ const PROJECTS = [
   {
     title: "The Cocktail DB",
     description:
-      "Práctica de una aplicación web SPA basada en React sobre la API de TheCocktailDB. se muestran cócteles, con sus recetas e ingredientes. búsqueda de cócteles por nombre y por ingrediente.",
+      "Práctica de una aplicación web SPA basada en React sobre la API de TheCocktailDB. se muestran cócteles, con sus recetas e ingredientes. búsqueda de cócteles por nombre y por ingrediente.",
     github: "https://github.com/alexisabels/thecocktaildb",
     image: "./cocktail.png",
     link: "https://thecocktaildb-jsx.vercel.app/",
@@ -105,39 +114,51 @@ const PROJECTS = [
 >
   {
     PROJECTS.map(({ image, title, description, tags, github, link }) => (
-      <div class="bg-white dark:bg-gray-800 transition p-5 rounded-md shadow-sm flex flex-col justify-between">
-        <div class="text-center ">
+      <div class="relative group bg-white dark:bg-gray-800 transition p-5 rounded-md shadow-sm flex flex-col justify-between overflow-hidden border-transparent">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none z-10" />
+
+        <div class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none z-20">
+          <span class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-200 transition-all duration-200 group-hover:w-full" />
+          <span class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-200 transition-all duration-200 group-hover:h-full" />
+          <span class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-200 transition-all duration-200 group-hover:w-full" />
+          <span class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-200 transition-all duration-200 group-hover:h-full" />
+        </div>
+
+        <div class="text-center relative z-30">
           <img
-            class="w-full h-56 rounded-lg object-cover object-top  mb-6 min-h-72 "
+            class="w-full h-56 rounded-lg object-cover object-top mb-6 min-h-72"
             src={image}
             alt={title}
             loading="lazy"
           />
-          <h3 class="text-2xl font-bold mb-2 text-black dark:text-white ">
+          <h3 class="text-2xl font-bold mb-2 text-black dark:text-white">
             {title}
           </h3>
           <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
             {tags.map((tag) => (
-              <span
-                class={`flex items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
+              <a
+                href={tag.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`flex  hover:bg-opacity-70 items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
               >
                 <tag.icon class="size-4" />
                 {tag.name}
-              </span>
+              </a>
             ))}
           </div>
-          <p class="text-gray-800 dark:text-white text-center mb-4 ">
+          <p class="text-gray-800 dark:text-white text-center mb-4">
             {description}
           </p>
         </div>
-        <div class="mt-auto flex items-center justify-center gap-5">
+        <div class="mt-auto flex items-center justify-center gap-5 relative z-30">
           {github && (
             <a
               href={github}
               role="link"
               target="_blank"
               rel="noopener noreferrer"
-              class="  flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300"
+              class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
             >
               <GithubIcon class="size-5 mr-2" />
               <span>Código</span>
@@ -149,7 +170,7 @@ const PROJECTS = [
               role="link"
               target="_blank"
               rel="noopener noreferrer"
-              class="  flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300"
+              class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
             >
               <LinkIcon class="size-5 mr-2" />
               <span>Enlace</span>
