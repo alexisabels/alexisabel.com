@@ -24,7 +24,11 @@ const { name, description, location, imageUrl, links } = Astro.props;
         {name}
       </h1>
     </div>
-    <p class="text-2xl dark:text-white text-black mt-4">{description}</p>
+    <p
+      class="text-2xl mt-4 inline-flex animate-background-shine bg-[linear-gradient(110deg,#939393,45%,#1e293b,55%,#939393)] bg-[length:250%_100%] bg-clip-text text-transparent"
+    >
+      {description}
+    </p>
     <div class="flex items-center mt-4 text-gray-700 dark:text-gray-300">
       <MapIcon class="size-6 mr-2" />
       <a

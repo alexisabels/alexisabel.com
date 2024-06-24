@@ -6,7 +6,20 @@ export default {
     extend: {
       backgroundImage: {
         "light-gradient": "#ffff",
-        "dark-gradient": "#161616)",
+        "dark-gradient": "#1e293b",
+      },
+      animation: {
+        "background-shine": "background-shine 3s linear infinite",
+      },
+      keyframes: {
+        "background-shine": {
+          from: {
+            backgroundPosition: "0 0",
+          },
+          to: {
+            backgroundPosition: "-200% 0",
+          },
+        },
       },
     },
   },
