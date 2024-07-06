@@ -1,14 +1,18 @@
 ---
 import AstroIcon from "./icons/AstroIcon.astro";
+import AzureIcon from "./icons/AzureIcon.astro";
 import FirebaseIcon from "./icons/FirebaseIcon.astro";
 import GithubIcon from "./icons/GithubIcon.astro";
 import JSIcon from "./icons/JSIcon.astro";
 import JavaIcon from "./icons/JavaIcon.astro";
 import LinkIcon from "./icons/LinkIcon.astro";
 import MaterialUiIcon from "./icons/MaterialUiIcon.astro";
+import MySQLIcon from "./icons/MySQLIcon.astro";
 import OracleIcon from "./icons/OracleIcon.astro";
 import ReactIcon from "./icons/ReactIcon.astro";
+import SQLIcon from "./icons/SQLIcon.astro";
 import TailwindIcon from "./icons/TailwindIcon.astro";
+import UbuntuIcon from "./icons/UbuntuIcon.astro";
 
 const TAGS = {
   REACT: {
@@ -44,8 +48,14 @@ const TAGS = {
   SQL: {
     name: "SQL",
     class: "bg-gray-200 text-black",
-    icon: OracleIcon,
+    icon: SQLIcon,
     url: "https://www.oracle.com/database/what-is-sql.html",
+  },
+  MYSQL: {
+    name: "MySQL",
+    class: "bg-gray-200 text-black",
+    icon: MySQLIcon,
+    url: "https://www.mysql.com",
   },
   ASTRO: {
     name: "Astro",
@@ -58,6 +68,18 @@ const TAGS = {
     class: "bg-gray-200 text-black",
     icon: TailwindIcon,
     url: "https://tailwindcss.com/",
+  },
+  AZURE: {
+    name: "Azure",
+    class: "bg-gray-200 text-black",
+    icon: AzureIcon,
+    url: "https://azure.microsoft.com/en-us/",
+  },
+  UBUNTU: {
+    name: "Ubuntu",
+    class: "bg-gray-200 text-black",
+    icon: UbuntuIcon,
+    url: "https://ubuntu.com/",
   },
 };
 
@@ -96,6 +118,15 @@ const PROJECTS = [
     github: "https://github.com/alexisabels/LALIGA",
     image: "./laliga.png",
     tags: [TAGS.JAVA, TAGS.SQL],
+  },
+  {
+    title: "InvoicePRO",
+    description:
+      "Web JSP para consultar resultados de La Liga y realizar apuestas ficticias.",
+    github: "https://github.com/alexisabels/InvoicePro",
+    image: "./invoice.png",
+    tags: [TAGS.JAVA, TAGS.SQL, TAGS.MYSQL, TAGS.AZURE, TAGS.UBUNTU],
+    link: "https://invoice.alexisabel.com",
   },
   {
     title: "SpaceX Launches",
