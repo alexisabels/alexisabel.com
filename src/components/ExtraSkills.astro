@@ -1,0 +1,83 @@
+---
+import AzureIcon from "./icons/AzureIcon.astro";
+import BootstrapIcon from "./icons/BootstrapIcon.astro";
+import CSSIcon from "./icons/CSSIcon.astro";
+import FigmaIcon from "./icons/FigmaIcon.astro";
+import GitlabIcon from "./icons/GitlabIcon.astro";
+import JSIcon from "./icons/JSIcon.astro";
+import JavaIcon from "./icons/JavaIcon.astro";
+import OracleIcon from "./icons/OracleIcon.astro";
+import ReactIcon from "./icons/ReactIcon.astro";
+import TailwindIcon from "./icons/TailwindIcon.astro";
+import UbuntuIcon from "./icons/UbuntuIcon.astro";
+import AWSIcon from "./icons/AWSIcon.astro";
+import MaterialIcon from "./icons/MaterialUiIcon.astro";
+import JestIcon from "./icons/JestIcon.astro";
+import RTLIcon from "./icons/RTLIcon.astro";
+import FirebaseIcon from "./icons/FirebaseIcon.astro";
+import SQLIcon from "./icons/SQLIcon.astro";
+
+const SKILLS = [
+  { name: "Gitlab", icon: GitlabIcon, url: "https://about.gitlab.com/" },
+  { name: "Azure", icon: AzureIcon, url: "https://azure.microsoft.com/" },
+  {
+    name: "Oracle OCI",
+    icon: OracleIcon,
+    url: "https://www.oracle.com/cloud/",
+  },
+  { name: "AWS", icon: AWSIcon, url: "https://aws.amazon.com/" },
+  { name: "Firebase", icon: FirebaseIcon, url: "https://firebase.google.com/" },
+
+  { name: "Material UI", icon: MaterialIcon, url: "https://mui.com/" },
+  { name: "Bootstrap", icon: BootstrapIcon, url: "https://getbootstrap.com/" },
+  {
+    name: "CSS",
+    icon: CSSIcon,
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  },
+
+  { name: "Ubuntu", icon: UbuntuIcon, url: "https://ubuntu.com/" },
+
+  { name: "Figma", icon: FigmaIcon, url: "https://www.figma.com/" },
+
+  { name: "Jest", icon: JestIcon, url: "https://jestjs.io/" },
+
+  {
+    name: "RTL",
+    icon: RTLIcon,
+    url: "https://testing-library.com/docs/react-testing-library/intro/",
+  },
+];
+---
+
+<style>
+  .skill-name {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .skill-container:hover .skill-name {
+    opacity: 1;
+  }
+</style>
+
+<div class="container mx-auto mt-8 space-y-10">
+  <div class="flex gap-x-10 gap-y-1 flex-wrap justify-start">
+    {
+      SKILLS.map((skill) => (
+        <a
+          href={skill.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center skill-container"
+        >
+          <div class="size-28 bg-white dark:bg-gray-700 rounded-xl shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+            <skill.icon class="size-20" />
+          </div>
+          <p class="mt-2 text-center text-gray-800 dark:text-gray-200 text-md font-semibold skill-name">
+            {skill.name}
+          </p>
+        </a>
+      ))
+    }
+  </div>
+</div>
