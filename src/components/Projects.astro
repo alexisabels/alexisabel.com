@@ -10,6 +10,7 @@ import MaterialUiIcon from "./icons/MaterialUiIcon.astro";
 import MySQLIcon from "./icons/MySQLIcon.astro";
 import OracleIcon from "./icons/OracleIcon.astro";
 import ReactIcon from "./icons/ReactIcon.astro";
+import ReactNativeIcon from "./icons/ReactNativeIcon.astro";
 import SQLIcon from "./icons/SQLIcon.astro";
 import TailwindIcon from "./icons/TailwindIcon.astro";
 import UbuntuIcon from "./icons/UbuntuIcon.astro";
@@ -20,6 +21,12 @@ const TAGS = {
     class: "bg-blue-900 text-white",
     icon: ReactIcon,
     url: "https://reactjs.org/",
+  },
+  REACTNATIVE: {
+    name: "React Native",
+    class: "bg-blue-900 text-white",
+    icon: ReactNativeIcon,
+    url: "https://reactnative.dev/",
   },
   FIRE: {
     name: "Firebase",
@@ -138,6 +145,16 @@ const PROJECTS = [
     tags: [TAGS.ASTRO, TAGS.TAILWIND],
   },
   {
+    title: "CineKino (En desarrollo)",
+    description:
+      "Aplicación web para la gestión y seguimiento de películas. Permite a los usuarios crear listas, escribir reseñas, seguir a otros usuarios y explorar nuevas recomendaciones. Desarrollada con React y Firebase para autenticación y base de datos.",
+    github: "https://github.com/alexisabels/cinekino",
+    link: "https://cinekino.alexisabel.com/",
+    image: "./cinekino.png",
+    tags: [TAGS.REACT, TAGS.FIRE],
+  },
+
+  {
     title: "Recipes App",
     description:
       "Web hecha con React y Tailwind que consume datos de una API de recetas. Permite agregar recetas a una lista de favoritos, que se guarda en el localStorage",
@@ -145,6 +162,23 @@ const PROJECTS = [
     link: "https://recipes.alexisabel.com/",
     image: "./recipes.png",
     tags: [TAGS.REACT, TAGS.TAILWIND],
+  },
+  {
+    title: "Cook Buddy (React Native)",
+    description:
+      "App básica hecha con React Native para crear recetas y guardarlas en el localStorage.",
+    github: "https://github.com/alexisabels/CookBuddy",
+    link: "https://snack.expo.dev/@alexisabels/github.com-alexisabels-cookbuddy",
+    image: "./cooknative.png",
+    tags: [TAGS.REACTNATIVE],
+  },
+  {
+    title: "Generador DNI-NIE",
+    description: "Web para generar NIF y NIE válidos.",
+    github: "https://github.com/alexisabels/verifica-nif-nie",
+    link: "https://dni.alexisabel.com",
+    image: "./dni.png",
+    tags: [TAGS.REACT, TAGS.JS],
   },
 ];
 ---
