@@ -2,6 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import Theme from "../components/Theme.astro";
 import SContainer from "../components/SContainer.astro";
+import { getI18N } from "../locales";
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale })
+
 ---
 
 <Layout title="Alejandro Isabel - Página no encontrada">
@@ -11,7 +15,7 @@ import SContainer from "../components/SContainer.astro";
       <h1
         class="text-7xl font-extrabold select-none dark:text-white text-gray-900"
       >
-        &lt;Página no encontrada /&gt;
+        &lt;{i18n["404.TITLE"]} /&gt;
       </h1>
       <p class="mt-4 text-4xl dark:text-gray-300 text-gray-700 select-none">
         Lo siento, la página que buscas no existe.
