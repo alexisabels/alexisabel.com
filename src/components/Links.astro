@@ -3,7 +3,6 @@ import CVIcon from "./icons/CVIcon.astro";
 import GithubIcon from "./icons/GithubIcon.astro";
 import LinkedInIcon from "./icons/LinkedInIcon.astro";
 import MailIcon from "./icons/MailIcon.astro";
-
 interface Props {
   links: Array<{ href: string; icon: string; alt: string }>;
 }
@@ -20,19 +19,31 @@ const icons: { [key: string]: (_props: Record<string, any>) => any } = {
 
 <div class="flex space-x-4">
   {
-    links.map((link) => {
+    links.map((link, index) => {
       const IconComponent = icons[link.icon];
+      const tooltipId = `tooltip-${link.icon}-${index}`;
       return (
         <a
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          class=" border  p-2 rounded-md border-black dark:border-white hover:bg-gray-100 transition duration-150 hover:scale-105 dark:hover:bg-gray-800"
+          class="relative border p-2 rounded-md border-black dark:border-white hover:bg-gray-100 transition duration-150 hover:scale-105 dark:hover:bg-gray-800"
+          data-tooltip-target={tooltipId}
+          data-tooltip-placement="bottom"
         >
           <IconComponent
             alt={link.alt}
             class="size-8 dark:text-white/80 text-black"
           />
+
+          <div
+            id={tooltipId}
+            role="tooltip"
+            class="absolute z-10 invisible inline-block px-3 py-2 text-md font-medium text-white bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700"
+          >
+            {link.alt}
+            <div class="tooltip-arrow" data-popper-arrow />
+          </div>
         </a>
       );
     })
