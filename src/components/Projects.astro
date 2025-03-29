@@ -144,7 +144,6 @@ const PROJECTS = [
     tags: [TAGS.JAVA, TAGS.SQL],
   },
 
-  /*
   {
     title: "Biblioteca JSP",
     description:
@@ -153,6 +152,16 @@ const PROJECTS = [
     image: "./biblioteca.png",
     tags: [TAGS.JAVA, TAGS.SQL],
   },
+  {
+    title: "The Cocktail DB",
+    description:
+      "Práctica de una aplicación web SPA basada en React sobre la API de TheCocktailDB. se muestran cócteles, con sus recetas e ingredientes. búsqueda de cócteles por nombre y por ingrediente.",
+    github: "https://github.com/alexisabels/thecocktaildb",
+    image: "./cocktail.png",
+    link: "https://cocktail.alexisabel.com/",
+    tags: [TAGS.REACT],
+  },
+  /*
   {
     title: "Cook Buddy (React Native)",
     description:
@@ -212,78 +221,186 @@ const PROJECTS = [
 
 <div
   class="grid grid-cols-1 mt-5 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+  id="projects-container"
 >
   {
-    PROJECTS.map(({ image, title, description, tags, github, link }) => (
-      <div class="relative group bg-white dark:bg-neutral-900 transition p-5 rounded-md shadow-sm flex flex-col justify-between overflow-hidden border border-gray-200 dark:border-gray-700">
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none z-10" />
-        <div class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none z-20">
-          <span class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
-          <span class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
-          <span class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
-          <span class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
-        </div>
-        <div class="text-center relative z-30">
-          <img
-            class="w-full h-56 rounded-lg object-cover object-top mb-6 min-h-72"
-            src={image}
-            alt={title}
-            loading="lazy"
-          />
-          <h3 class="text-2xl font-bold mb-2 text-black dark:text-white">
-            {title}
-          </h3>
-          <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
-            {tags.map((tag) => (
+    PROJECTS.slice(0, 4).map(
+      ({ image, title, description, tags, github, link }) => (
+        <div class="relative group bg-white dark:bg-neutral-900 transition p-5 rounded-md shadow-sm flex flex-col justify-between overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none z-10" />
+          <div class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none z-20">
+            <span class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
+            <span class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
+            <span class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
+            <span class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
+          </div>
+          <div class="text-center relative z-30">
+            <img
+              class="w-full h-56 rounded-lg object-cover object-top mb-6 min-h-72"
+              src={image}
+              alt={title}
+              loading="lazy"
+            />
+            <h3 class="text-2xl font-bold mb-2 text-black dark:text-white">
+              {title}
+            </h3>
+            <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
+              {tags.map((tag) => (
+                <a
+                  href={tag.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={`flex  hover:bg-opacity-70 transition duration-150 items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
+                >
+                  <tag.icon class="size-4" />
+                  {tag.name}
+                </a>
+              ))}
+            </div>
+            <p class="text-gray-800 dark:text-white text-center mb-4">
+              {description}
+            </p>
+          </div>
+          <div class="mt-auto flex items-center justify-center gap-5 relative z-30">
+            {github && (
               <a
-                href={tag.url}
+                href={github}
+                role="link"
                 target="_blank"
                 rel="noopener noreferrer"
-                class={`flex  hover:bg-opacity-70 transition duration-150 items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
+                class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
               >
-                <tag.icon class="size-4" />
-                {tag.name}
+                <GithubIcon class="size-5 mr-2" />
+                <span>Código</span>
               </a>
-            ))}
+            )}
+            {link && (
+              <a
+                href={link}
+                role="link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
+              >
+                <LinkIcon class="size-5 mr-2" />
+                <span>Enlace</span>
+              </a>
+            )}
           </div>
-          <p class="text-gray-800 dark:text-white text-center mb-4">
-            {description}
-          </p>
         </div>
-        <div class="mt-auto flex items-center justify-center gap-5 relative z-30">
-          {github && (
-            <a
-              href={github}
-              role="link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
-            >
-              <GithubIcon class="size-5 mr-2" />
-              <span>Código</span>
-            </a>
-          )}
-          {link && (
-            <a
-              href={link}
-              role="link"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
-            >
-              <LinkIcon class="size-5 mr-2" />
-              <span>Enlace</span>
-            </a>
-          )}
-        </div>
-      </div>
-    ))
+      )
+    )
   }
 </div>
+
+<div class="hidden" id="more-projects">
+  <div
+    class="grid grid-cols-1 mt-5 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+  >
+    {
+      PROJECTS.slice(4).map(
+        ({ image, title, description, tags, github, link }) => (
+          <div class="relative group bg-white dark:bg-neutral-900 transition p-5 rounded-md shadow-sm flex flex-col justify-between overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none z-10" />
+            <div class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none z-20">
+              <span class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
+              <span class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
+              <span class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
+              <span class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
+            </div>
+            <div class="text-center relative z-30">
+              <img
+                class="w-full h-56 rounded-lg object-cover object-top mb-6 min-h-72"
+                src={image}
+                alt={title}
+                loading="lazy"
+              />
+              <h3 class="text-2xl font-bold mb-2 text-black dark:text-white">
+                {title}
+              </h3>
+              <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
+                {tags.map((tag) => (
+                  <a
+                    href={tag.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={`flex  hover:bg-opacity-70 transition duration-150 items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
+                  >
+                    <tag.icon class="size-4" />
+                    {tag.name}
+                  </a>
+                ))}
+              </div>
+              <p class="text-gray-800 dark:text-white text-center mb-4">
+                {description}
+              </p>
+            </div>
+            <div class="mt-auto flex items-center justify-center gap-5 relative z-30">
+              {github && (
+                <a
+                  href={github}
+                  role="link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
+                >
+                  <GithubIcon class="size-5 mr-2" />
+                  <span>Código</span>
+                </a>
+              )}
+              {link && (
+                <a
+                  href={link}
+                  role="link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
+                >
+                  <LinkIcon class="size-5 mr-2" />
+                  <span>Enlace</span>
+                </a>
+              )}
+            </div>
+          </div>
+        )
+      )
+    }
+  </div>
+</div>
+
+<div class="flex justify-center mt-10 mb-8">
+  <button
+    id="view-more-btn"
+    class="group relative px-8 py-3 font-medium text-gray-700 dark:text-white border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+  >
+    <span class="relative z-10">Ver más proyectos</span>
+    <div
+      class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none"
+    >
+      <span
+        class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full"
+      ></span>
+      <span
+        class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full"
+      ></span>
+      <span
+        class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full"
+      ></span>
+      <span
+        class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full"
+      ></span>
+    </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none"
+    >
+    </div>
+  </button>
+</div>
+
 <p
   class="text-2xl text-center mt-8 animate-background-shine bg-[linear-gradient(110deg,#939393,45%,#1e293b,55%,#939393)] bg-[length:250%_100%] bg-clip-text text-transparent"
 >
-  Puedes ver más proyectos en mi <a
+  Puedes ver todos mis proyectos en mi <a
     href="https://github.com/alexisabels"
     target="_blank"
     rel="noopener noreferrer"
@@ -292,3 +409,24 @@ const PROJECTS = [
     GitHub
   </a>
 </p>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const viewMoreBtn = document.getElementById("view-more-btn");
+    const moreProjects = document.getElementById("more-projects");
+
+    if (viewMoreBtn) {
+      viewMoreBtn.addEventListener("click", function () {
+        if (moreProjects) {
+          moreProjects.classList.toggle("hidden");
+        }
+
+        if (moreProjects && moreProjects.classList.contains("hidden")) {
+          viewMoreBtn.textContent = "Ver más proyectos";
+        } else {
+          viewMoreBtn.textContent = "Ver menos";
+        }
+      });
+    }
+  });
+</script>
