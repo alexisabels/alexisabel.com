@@ -14,6 +14,7 @@ import ReactNativeIcon from "./icons/ReactNativeIcon.astro";
 import SQLIcon from "./icons/SQLIcon.astro";
 import TailwindIcon from "./icons/TailwindIcon.astro";
 import UbuntuIcon from "./icons/UbuntuIcon.astro";
+import SpringIcon from "./icons/SpringIcon.astro";
 
 const TAGS = {
   REACT: {
@@ -88,9 +89,23 @@ const TAGS = {
     icon: UbuntuIcon,
     url: "https://ubuntu.com/",
   },
+  SPRING: {
+    name: "Spring JPA - Security",
+    class: "bg-[#333] text-white",
+    icon: SpringIcon,
+    url: "https://spring.io/",
+  },
 };
 
 const PROJECTS = [
+  {
+    title: "AudSys",
+    description:
+      "AudSys es una aplicación pensada para ayudar a pequeñas empresas a tener controlados sus procesos de calidad. Permite organizar auditorías, registrar lo que se encuentra en ellas, asignar responsables y hacer seguimiento de las acciones que hay que tomar.",
+    github: "https://github.com/alexisabels/audsys",
+    image: "./audsys.jpg",
+    tags: [TAGS.JAVA, TAGS.MYSQL, TAGS.SPRING],
+  },
   {
     title: "Waving Social",
     description:
