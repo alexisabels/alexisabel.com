@@ -2,6 +2,7 @@
 import Links from "./Links.astro";
 import TypedText from "./TypedText.astro";
 import MapIcon from "./icons/MapIcon.astro";
+import LinkIcon from "./icons/LinkIcon.astro";
 
 interface Props {
   name: string;
@@ -31,19 +32,15 @@ const { name, description, location, imageUrl, links } = Astro.props;
       <TypedText />
     </p>
 
-    <p class="text-2xl mt-4">
+    <div class="flex items-center mt-4 text-gray-700 dark:text-gray-300">
+      <LinkIcon class="size-6 mr-2" />
       <a
         href="https://blog.alexisabel.com"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 dark:hover:text-white hover:text-black hover:underline transition-all duration-300"
+        class="text-black dark:text-white">¡Visita mi blog!</a
       >
-        ¡Visita mi blog! Haz click aquí
-      </a>
-      <span class="inline-flex items-center ml-2 text-xs text-gray-400 dark:text-gray-500">
-        <MapIcon class="size-3 mr-1" />{location}
-      </span>
-    </p>
+    </div>
 
     <div class="flex items-center mt-4 text-gray-700 dark:text-gray-300">
       <MapIcon class="size-6 mr-2" />
