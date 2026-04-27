@@ -4,51 +4,121 @@ import JavaIcon from "./icons/JavaIcon.astro";
 import ReactIcon from "./icons/ReactIcon.astro";
 import SQLIcon from "./icons/SQLIcon.astro";
 import SpringIcon from "./icons/SpringIcon.astro";
+import AngularIcon from "./icons/AngularIcon.astro";
 
-const SKILLS = [
-  { name: "React", icon: ReactIcon, url: "https://reactjs.org/" },
+const CORE = [
   { name: "Java", icon: JavaIcon, url: "https://www.oracle.com/java/" },
+  { name: "Spring Boot", icon: SpringIcon, url: "https://spring.io/" },
+  { name: "React", icon: ReactIcon, url: "https://reactjs.org/" },
+  { name: "Angular", icon: AngularIcon, url: "https://angular.dev/" },
   {
     name: "JavaScript",
     icon: JSIcon,
     url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   },
-  { name: "Spring Boot", icon: SpringIcon, url: "https://spring.io/" },
-
   {
     name: "SQL",
     icon: SQLIcon,
     url: "https://www.oracle.com/es/database/technologies/appdev/sql.html",
   },
 ];
+
+const AGENTS = [
+  {
+    name: "Claude Code",
+    url: "https://www.claude.com/product/claude-code",
+    logo: "/claude.svg",
+  },
+  {
+    name: "Antigravity",
+    url: "https://antigravity.google/",
+    logo: "/antigravity.svg",
+  },
+  {
+    name: "Codex",
+    url: "https://openai.com/codex/",
+    logo: "/light-openai.svg",
+    logoDark: "/openai_dark.svg",
+  },
+];
+
+const OTHER = [
+  { name: "Azure", url: "https://azure.microsoft.com/" },
+  { name: "AWS", url: "https://aws.amazon.com/" },
+  { name: "Oracle OCI", url: "https://www.oracle.com/cloud/" },
+  { name: "MySQL", url: "https://www.mysql.com/" },
+  { name: "Gitlab", url: "https://about.gitlab.com/" },
+  { name: "Jest", url: "https://jestjs.io/" },
+  { name: "TypeScript", url: "https://www.typescriptlang.org/" },
+  { name: "Node.js", url: "https://nodejs.org/" },
+];
 ---
 
-<style>
-  .skill-name {
-    opacity: 1;
-    transition: opacity 0.3s;
-  }
-  .skill-container:hover .skill-name {
-    opacity: 1;
-  }
-</style>
-
-<div class="container mx-auto mt-8 space-y-10">
-  <div class="flex gap-x-10 gap-y-1 flex-wrap justify-start">
+<div class="flex flex-col gap-10 md:gap-12">
+  <ul class="flex flex-wrap gap-x-3 gap-y-3">
     {
-      SKILLS.map((skill) => (
+      CORE.map((skill) => (
+        <li>
+          <a
+            href={skill.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center gap-4 px-5 md:px-6 py-4 md:py-5 border border-hairline hover:border-accent transition-colors"
+          >
+            <skill.icon class="size-6 md:size-7" />
+            <span class="text-ink text-lg md:text-xl font-medium group-hover:text-accent transition-colors">
+              {skill.name}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="text-ink-muted text-base md:text-lg leading-[1.7] max-w-3xl">
+    <span class="text-ink font-medium">También trabajo con:</span>{" "}
+    {
+      OTHER.map((item, i) => (
+        <>
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink-muted hover:text-accent underline decoration-hairline underline-offset-4 hover:decoration-accent transition-colors"
+          >
+            {item.name}
+          </a>
+          {i < OTHER.length - 1 ? ", " : "."}
+        </>
+      ))
+    }
+  </p>
+
+  <div class="flex flex-wrap items-center gap-x-3 gap-y-2.5 max-w-3xl">
+    <span class="text-ink font-medium text-base md:text-lg">Agentes:</span>
+    {
+      AGENTS.map((agent) => (
         <a
-          href={skill.url}
+          href={agent.url}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex flex-col items-center skill-container"
+          class="group inline-flex items-center gap-2.5 px-3.5 py-2.5 border border-hairline hover:border-accent transition-colors"
         >
-          <div class="size-28 bg-white dark:bg-gray-700 rounded-xl shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
-            <skill.icon class="size-20" />
-          </div>
-          <p class="mt-2 text-center text-gray-800 dark:text-gray-200 text-md font-semibold skill-name">
-            {skill.name}
-          </p>
+          <img
+            src={agent.logo}
+            alt=""
+            loading="lazy"
+            class="size-4 md:size-[18px] object-contain block dark:hidden"
+          />
+          <img
+            src={agent.logoDark || agent.logo}
+            alt=""
+            loading="lazy"
+            class="size-4 md:size-[18px] object-contain hidden dark:block"
+          />
+          <span class="text-ink text-sm md:text-base font-medium group-hover:text-accent transition-colors">
+            {agent.name}
+          </span>
         </a>
       ))
     }

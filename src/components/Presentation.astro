@@ -1,65 +1,251 @@
 ---
 import Links from "./Links.astro";
 import TypedText from "./TypedText.astro";
-import MapIcon from "./icons/MapIcon.astro";
 
 interface Props {
   name: string;
-  description: string;
   location: string;
   imageUrl: string;
   links: Array<{ href: string; icon: string; alt: string }>;
 }
 
-const { name, description, location, imageUrl, links } = Astro.props;
+const { name, location, imageUrl, links } = Astro.props;
+const [first, ...rest] = name.split(" ");
+const surname = rest.join(" ");
 ---
 
-<div
-  class="container mx-auto flex flex-col md:flex-row items-center mt-20 space-y-6 md:space-y-0 md:space-x-10"
+<section
+  class="pt-12 md:pt-20 pb-12 md:pb-20 grid grid-cols-12 gap-6 md:gap-10"
 >
   <div
-    class="md:flex-1 flex flex-col items-center md:items-start text-center md:text-left"
+    class="md:hidden col-span-12 memoji slide-up size-32"
+    role="img"
+    aria-label={name}
   >
-    <div class="flex flex-col md:flex-row items-center md:items-start">
-      <h1 class="text-7xl dark:text-white text-black bg-clip-text font-bold">
-        {name}
-      </h1>
+    <div class="memoji__inner" data-memoji-inner>
+      <img
+        src={imageUrl}
+        alt=""
+        class="memoji__face memoji__front size-full object-contain select-none"
+        data-memoji-front
+        draggable="false"
+      />
+      <img
+        src="/yoconportatil.png"
+        alt=""
+        aria-hidden="true"
+        class="memoji__face memoji__back size-full object-contain select-none"
+        data-memoji-back
+        draggable="false"
+      />
     </div>
-    <p
-      class="text-2xl mt-4 inline-flex animate-background-shine bg-[linear-gradient(110deg,#939393,45%,#1e293b,55%,#939393)] bg-[length:250%_100%] bg-clip-text text-transparent"
+  </div>
+
+  <div class="col-span-12 md:col-span-9 flex flex-col">
+    <h1
+      class="slide-up font-display font-semibold text-ink tracking-tight2 leading-[0.86] text-[clamp(3.75rem,15vw,11.5rem)]"
     >
+      <span class="block">{first}</span>
+      <span class="block">{surname}</span>
+    </h1>
+  </div>
+
+  <aside
+    class="col-span-12 md:col-span-3 flex flex-col gap-5 md:pt-3 md:border-l md:border-hairline md:pl-6"
+  >
+    <div
+      class="memoji slide-up delay-1 size-60 hidden md:block"
+      role="img"
+      aria-label={name}
+    >
+      <div class="memoji__inner" data-memoji-inner>
+        <img
+          src={imageUrl}
+          alt=""
+          class="memoji__face memoji__front size-full object-contain select-none"
+          data-memoji-front
+          draggable="false"
+        />
+        <img
+          src="/yoconportatil.png"
+          alt=""
+          aria-hidden="true"
+          class="memoji__face memoji__back size-full object-contain select-none"
+          data-memoji-back
+          draggable="false"
+        />
+      </div>
+    </div>
+
+    <p class="slide-up delay-2 text-ink text-base md:text-lg min-h-[2lh]">
+      <span
+        class="inline-block size-1.5 rounded-full bg-accent align-middle mr-2"
+      ></span>
       <TypedText />
     </p>
 
-    <p class="text-2xl mt-4">
+    <p class="slide-up delay-2 text-ink text-base md:text-lg">
       <a
-        href="https://blog.alexisabel.com"
+        href="https://www.google.com/maps/place/Toledo"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 dark:hover:text-white hover:text-black hover:underline transition-all duration-300"
+        class="underline decoration-hairline underline-offset-4 hover:decoration-accent hover:text-accent transition-colors"
       >
-        ¡Visita mi blog! Haz click aquí
+        {location}, España
       </a>
     </p>
 
-    <div class="flex items-center mt-4 text-gray-700 dark:text-gray-300">
-      <MapIcon class="size-6 mr-2" />
-      <a
-        href="https://www.google.com/maps/place/Toledo/@39.84986,-4.1105338,12z/data=!4m6!3m5!1s0xd6a7179438c6461:0x30340f3be4bcc00!8m2!3d39.739778!4d-4.2333355!16zL20vMDEyNDlf?entry=ttu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-black dark:text-white">{location}</a
-      >
-    </div>
-    <div class="mt-4">
+    <div class="slide-up delay-3 mt-2">
       <Links {links} />
     </div>
-  </div>
-  <div class="md:w-60 w-48 h-auto">
-    <img
-      src={imageUrl}
-      class="selector object-cover rounded-full border dark:border-gray-300 transition duration-300 dark:grayscale-0 hover:grayscale-0 border-gray-500 grayscale"
-      alt={name}
-    />
-  </div>
-</div>
+  </aside>
+</section>
+
+<style>
+  .memoji {
+    cursor: pointer;
+    clip-path: circle(50%);
+  }
+  .memoji__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 85%;
+    will-change: transform;
+  }
+  .memoji__face {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+  }
+  .memoji__back {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .memoji:hover .memoji__front {
+      opacity: 0;
+    }
+    .memoji:hover .memoji__back {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  import { animate } from "motion";
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduced) {
+    document.querySelectorAll<HTMLElement>(".memoji").forEach((memoji) => {
+      const inner = memoji.querySelector<HTMLElement>("[data-memoji-inner]");
+      const front = memoji.querySelector<HTMLElement>("[data-memoji-front]");
+      const back = memoji.querySelector<HTMLElement>("[data-memoji-back]");
+      if (!inner || !front || !back) return;
+
+      type Anim = ReturnType<typeof animate>;
+      const running = new Set<Anim>();
+      let swapTimer: number | null = null;
+      let state: "front" | "back" = "front";
+
+      const track = (a: Anim) => {
+        running.add(a);
+        a.finished.then(() => running.delete(a)).catch(() => running.delete(a));
+        return a;
+      };
+
+      const cancelAll = () => {
+        running.forEach((a) => a.cancel());
+        running.clear();
+        if (swapTimer !== null) {
+          window.clearTimeout(swapTimer);
+          swapTimer = null;
+        }
+      };
+
+      const easeIn = [0.45, 0, 0.7, 0.3] as [number, number, number, number];
+      const easeOut = [0.2, 0.7, 0.15, 1] as [number, number, number, number];
+
+      const turnToBack = () => {
+        if (state === "back") return;
+        state = "back";
+        cancelAll();
+
+        // Single dip-and-recover. No overshoot peak.
+        track(
+          animate(
+            inner,
+            {
+              scaleX: [1, 1.03, 1],
+              scaleY: [1, 0.95, 1],
+              rotate: [0, -3, 0],
+              y: [0, 2, 0],
+            },
+            {
+              duration: 0.45,
+              times: [0, 0.4, 1],
+              ease: [easeIn, easeOut],
+            }
+          )
+        );
+
+        // Back image: subtle rise from below as the head recovers.
+        swapTimer = window.setTimeout(() => {
+          swapTimer = null;
+          front.style.opacity = "0";
+          back.style.opacity = "1";
+          track(
+            animate(
+              back,
+              {
+                y: [4, 0],
+                scaleY: [0.94, 1],
+              },
+              { duration: 0.32, ease: easeOut }
+            )
+          );
+        }, 170);
+      };
+
+      const turnToFront = () => {
+        if (state === "front") return;
+        state = "front";
+        cancelAll();
+
+        track(
+          animate(
+            inner,
+            {
+              scaleX: [1, 1.02, 1],
+              scaleY: [1, 0.96, 1],
+              rotate: [0, 2, 0],
+              y: [0, 1, 0],
+            },
+            {
+              duration: 0.32,
+              times: [0, 0.4, 1],
+              ease: [easeIn, easeOut],
+            }
+          )
+        );
+
+        swapTimer = window.setTimeout(() => {
+          swapTimer = null;
+          front.style.opacity = "1";
+          back.style.opacity = "0";
+        }, 110);
+      };
+
+      const hasHover = window.matchMedia("(hover: hover)").matches;
+      if (hasHover) {
+        memoji.addEventListener("mouseenter", turnToBack);
+        memoji.addEventListener("mouseleave", turnToFront);
+      } else {
+        memoji.addEventListener("click", () => {
+          if (state === "front") turnToBack();
+          else turnToFront();
+        });
+      }
+    });
+  }
+</script>

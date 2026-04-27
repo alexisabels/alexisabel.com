@@ -1,124 +1,48 @@
 ---
 import SunIcon from "./icons/Sun.astro";
 import MoonIcon from "./icons/Moon.astro";
-import SystemIcon from "./icons/System.astro";
-
-const THEMES = ["Light", "Dark", "System"];
 ---
 
-<div class="fixed top-4 right-4 z-50">
-  <div class="relative ml-1 mr-1">
-    <button
-      id="theme-toggle-btn"
-      class="appearance-none border-none flex hover:scale-125 transition"
-    >
-      <span class="sr-only">Elige el tema</span>
-      <SunIcon
-        id="light"
-        class="theme-toggle-icon size-9 dark:text-white transition-all"
-      />
-      <MoonIcon
-        id="dark"
-        class="theme-toggle-icon absolute size-9 dark:text-white transition-all"
-      />
-      <SystemIcon
-        id="system"
-        class="theme-toggle-icon absolute size-9 dark:text-white transition-all"
-      />
-    </button>
-    <div
-      id="themes-menu"
-      class="absolute hidden scale-80 top-8 right-0 text-xl p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
-    >
-      <ul>
-        {
-          THEMES.map((theme) => (
-            <li class="themes-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:text-white dark:hover:bg-gray-500/50 rounded-sm select-none">
-              {theme}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </div>
+<div class="fixed top-4 right-4 md:top-6 md:right-6 z-50">
+  <button
+    id="theme-toggle-btn"
+    class="relative flex items-center justify-center size-10 border border-hairline bg-paper/70 backdrop-blur-sm text-ink hover:border-accent hover:text-accent transition-colors"
+    aria-label="Cambiar tema"
+  >
+    <SunIcon id="icon-sun" class="theme-toggle-icon size-4" />
+    <MoonIcon id="icon-moon" class="theme-toggle-icon absolute size-4" />
+  </button>
 </div>
 
-<style>
-  #themes-menu.open {
-    display: inline;
-    animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-
-  @keyframes scale-up-center {
-    from {
-      transform: scale(0.8);
-      opacity: 0;
-    }
-
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  *, svg div {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFF' stroke='%23000' stroke-width='2' stroke-linejoin='round' d='M10 11V8.99c0-.88.59-1.64 1.44-1.86h.05A1.99 1.99 0 0 1 14 9.05V12v-2c0-.88.6-1.65 1.46-1.87h.05A1.98 1.98 0 0 1 18 10.06V13v-1.94a2 2 0 0 1 1.51-1.94h0A2 2 0 0 1 22 11.06V14c0 .6-.08 1.27-.21 1.97a7.96 7.96 0 0 1-7.55 6.48 54.98 54.98 0 0 1-4.48 0 7.96 7.96 0 0 1-7.55-6.48C2.08 15.27 2 14.59 2 14v-1.49c0-1.11.9-2.01 2.01-2.01h0a2 2 0 0 1 2.01 2.03l-.01.97v-10c0-1.1.9-2 2-2h0a2 2 0 0 1 2 2V11Z'/%3E%3C/svg%3E") 12 12, default;
-}
-</style>
-
 <script is:inline>
-  let remove = null;
-  const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-  const themesMenu = document.getElementById("themes-menu");
+  const sun = document.getElementById("icon-sun");
+  const moon = document.getElementById("icon-moon");
 
-  const getThemePreference = () => {
+  const getInitial = () => {
     if (typeof localStorage !== "undefined") {
-      return localStorage.getItem("theme") ?? "system";
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || saved === "light") return saved;
     }
-
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   };
 
-  const updateIcon = (themePreference) => {
-    document.querySelectorAll(".theme-toggle-icon").forEach((element) => {
-      element.style.transform =
-        element.id === themePreference ? "scale(1)" : "scale(0)";
-    });
+  const apply = (theme) => {
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    // mostrar el icono OPUESTO al estado actual (lo que pasará al clicar)
+    if (sun) sun.style.transform = isDark ? "scale(1)" : "scale(0)";
+    if (moon) moon.style.transform = isDark ? "scale(0)" : "scale(1)";
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (_) {}
   };
 
-  const updateTheme = () => {
-    if (remove != null) {
-      remove();
-    }
-    matchMedia.addEventListener("change", updateTheme);
-    remove = () => {
-      matchMedia.removeEventListener("change", updateTheme);
-    };
+  apply(getInitial());
 
-    const themePreference = getThemePreference();
-    const isDark =
-      themePreference === "dark" ||
-      (themePreference === "system" && matchMedia.matches);
-
-    updateIcon(themePreference);
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-  };
-
-  updateTheme();
-
-  document.addEventListener("click", () => themesMenu.classList.remove("open"));
-
-  document.getElementById("theme-toggle-btn").addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isClosed = !themesMenu.classList.contains("open");
-    themesMenu.classList[isClosed ? "add" : "remove"]("open");
-  });
-
-  document.querySelectorAll(".themes-menu-option").forEach((element) => {
-    element.addEventListener("click", (e) => {
-      localStorage.setItem("theme", e.target.innerText.toLowerCase().trim());
-      updateTheme();
-    });
+  document.getElementById("theme-toggle-btn")?.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+    apply(isDark ? "light" : "dark");
   });
 </script>

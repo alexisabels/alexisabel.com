@@ -1,21 +1,29 @@
-<span class="typed-element text-2xl text-[#939393]"></span>
+---
+---
+
+<span class="typed-element font-display text-ink-muted"></span>
 
 <script>
   import Typed from "typed.js";
 
   document.addEventListener("DOMContentLoaded", function () {
-    const typed = new Typed(".typed-element", {
+    new Typed(".typed-element", {
       strings: [
-        "Desarrollador de software",
-        "Desarrollador Full-Stack",
-        "Spring Backend & API Developer",
-        "Desarrollador de aplicaciones web",
-        "Java · Spring Boot · React",
-        "Software Developer",
+        "Desarrollo aplicaciones y servicios web.",
+        "Integro herramientas de IA en el proceso.",
       ],
-      typeSpeed: 30,
-      backSpeed: 20,
+      typeSpeed: 42,
+      backSpeed: 22,
+      backDelay: 2400,
       loop: true,
+      smartBackspace: true,
     });
   });
 </script>
+
+<style is:global>
+  .typed-cursor {
+    color: rgb(var(--accent));
+    opacity: 0.9;
+  }
+</style>

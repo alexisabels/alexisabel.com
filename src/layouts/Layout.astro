@@ -1,5 +1,6 @@
 ---
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Cursor from "../components/Cursor.astro";
 interface Props {
   title: string;
 }
@@ -8,61 +9,161 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Bienvenido a mi portfolio" />
+    <meta
+      name="description"
+      content="Alejandro Isabel — Desarrollador de software en Toledo. Java, Spring y React."
+    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
     <meta name="generator" content={Astro.generator} />
     <script src="/node_modules/flowbite/dist/flowbite.js" is:client></script>
     <title>{title}</title>
   </head>
-  <body
-    class="relative min-h-screen w-full bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(243,244,246,1)_30%)] dark:bg-neutral-950 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] bg-gray-100"
-  >
+  <body>
+    <Cursor />
     <slot />
   </body>
   <SpeedInsights />
 </html>
 <style is:global>
+  :root {
+    --ink: 14 14 14;
+    --ink-muted: 110 110 110;
+    --paper: 247 245 240;
+    --paper-raised: 240 237 230;
+    --accent: 15 120 80;
+    --cursor-stroke: 14 14 14;
+  }
+  .dark {
+    --ink: 237 234 227;
+    --ink-muted: 135 135 135;
+    --paper: 16 14 11;
+    --paper-raised: 24 21 17;
+    --accent: 120 180 150;
+    --cursor-stroke: 16 14 11;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   html,
   body {
-    font-family: monospace;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
     margin: 0;
     padding: 0;
   }
+
   body {
-    display: flex;
-    flex-direction: column;
+    background-color: rgb(var(--paper));
+    color: rgb(var(--ink));
+    font-family:
+      "Bricolage Grotesque",
+      ui-sans-serif,
+      system-ui,
+      sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.5;
     min-height: 100vh;
-    padding: 0 2rem;
+    padding: 0 1.25rem;
+    overflow-x: hidden;
   }
 
-  .selector {
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
-  html {
-    cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFF' stroke='%23000' stroke-width='2' d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z'/%3E%3C/svg%3E")
-        12 12,
-      pointer;
+
+  @media (min-width: 768px) {
+    body {
+      padding: 0 2.5rem;
+    }
   }
-  a,
-  button,
-  input,
-  select,
-  textarea {
-    cursor:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFF' stroke='%23000' stroke-width='2' stroke-linejoin='round' d='M10 11V8.99c0-.88.59-1.64 1.44-1.86h.05A1.99 1.99 0 0 1 14 9.05V12v-2c0-.88.6-1.65 1.46-1.87h.05A1.98 1.98 0 0 1 18 10.06V13v-1.94a2 2 0 0 1 1.51-1.94h0A2 2 0 0 1 22 11.06V14c0 .6-.08 1.27-.21 1.97a7.96 7.96 0 0 1-7.55 6.48 54.98 54.98 0 0 1-4.48 0 7.96 7.96 0 0 1-7.55-6.48C2.08 15.27 2 14.59 2 14v-1.49c0-1.11.9-2.01 2.01-2.01h0a2 2 0 0 1 2.01 2.03l-.01.97v-10c0-1.1.9-2 2-2h0a2 2 0 0 1 2 2V11Z'/%3E%3C/svg%3E")
-        12 12,
-      default;
+
+  ::selection {
+    background: rgb(var(--accent));
+    color: rgb(var(--paper));
+  }
+
+  body::-webkit-scrollbar {
+    width: 0;
+  }
+
+  /* paper grain — sutil, ambos modos via overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.55'/></svg>");
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+  }
+  html.dark body::before {
+    opacity: 0.24;
+  }
+
+  /* one orchestrated load */
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .slide-up {
+    animation: slide-up 700ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  }
+  .delay-1 { animation-delay: 100ms; }
+  .delay-2 { animation-delay: 200ms; }
+  .delay-3 { animation-delay: 300ms; }
+  .delay-4 { animation-delay: 400ms; }
+
+  /* in-view fade for sections */
+  .in-view {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 600ms cubic-bezier(0.2, 0.7, 0.1, 1),
+      transform 600ms cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .in-view.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
+
+<script is:inline>
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -80px 0px", threshold: 0.05 }
+  );
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".in-view").forEach((el) => io.observe(el));
+  });
+</script>

@@ -1,6 +1,4 @@
 ---
-import AstroIcon from "./icons/AstroIcon.astro";
-import AzureIcon from "./icons/AzureIcon.astro";
 import FirebaseIcon from "./icons/FirebaseIcon.astro";
 import GithubIcon from "./icons/GithubIcon.astro";
 import JSIcon from "./icons/JSIcon.astro";
@@ -8,439 +6,396 @@ import JavaIcon from "./icons/JavaIcon.astro";
 import LinkIcon from "./icons/LinkIcon.astro";
 import MaterialUiIcon from "./icons/MaterialUiIcon.astro";
 import MySQLIcon from "./icons/MySQLIcon.astro";
-import OracleIcon from "./icons/OracleIcon.astro";
 import ReactIcon from "./icons/ReactIcon.astro";
-import ReactNativeIcon from "./icons/ReactNativeIcon.astro";
 import SQLIcon from "./icons/SQLIcon.astro";
 import TailwindIcon from "./icons/TailwindIcon.astro";
-import UbuntuIcon from "./icons/UbuntuIcon.astro";
 import SpringIcon from "./icons/SpringIcon.astro";
+import NextJSIcon from "./icons/NextJSIcon.astro";
+import TSIcon from "./icons/TSIcon.astro";
 
 const TAGS = {
-  REACT: {
-    name: "React",
-    class: "bg-blue-900 text-white",
-    icon: ReactIcon,
-    url: "https://reactjs.org/",
-  },
-  REACTNATIVE: {
-    name: "React Native",
-    class: "bg-blue-900 text-white",
-    icon: ReactNativeIcon,
-    url: "https://reactnative.dev/",
-  },
-  FIRE: {
-    name: "Firebase",
-    class: "bg-gray-600 text-white",
-    icon: FirebaseIcon,
-    url: "https://firebase.google.com/",
-  },
-  MUI: {
-    name: "Material UI",
-    class: "bg-gray-900 text-white",
-    icon: MaterialUiIcon,
-    url: "https://mui.com/",
-  },
-  JS: {
-    name: "JavaScript",
-    class: "bg-gray-800 text-white",
-    icon: JSIcon,
-    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-  },
-  JAVA: {
-    name: "Java",
-    class: "bg-[#333] text-white",
-    icon: JavaIcon,
-    url: "https://www.oracle.com/java/",
-  },
-  SQL: {
-    name: "SQL",
-    class: "bg-gray-200 text-black",
-    icon: SQLIcon,
-    url: "https://www.oracle.com/database/what-is-sql.html",
-  },
-  MYSQL: {
-    name: "MySQL",
-    class: "bg-gray-200 text-black",
-    icon: MySQLIcon,
-    url: "https://www.mysql.com",
-  },
-  ASTRO: {
-    name: "Astro",
-    class: "bg-blue-400 text-white",
-    icon: AstroIcon,
-    url: "https://astro.build/",
-  },
-  TAILWIND: {
-    name: "Tailwind",
-    class: "bg-gray-200 text-black",
-    icon: TailwindIcon,
-    url: "https://tailwindcss.com/",
-  },
-  AZURE: {
-    name: "Azure",
-    class: "bg-gray-200 text-black",
-    icon: AzureIcon,
-    url: "https://azure.microsoft.com/en-us/",
-  },
-  UBUNTU: {
-    name: "Ubuntu",
-    class: "bg-gray-200 text-black",
-    icon: UbuntuIcon,
-    url: "https://ubuntu.com/",
-  },
-  SPRING: {
-    name: "Spring JPA - Security",
-    class: "bg-[#333] text-white",
-    icon: SpringIcon,
-    url: "https://spring.io/",
-  },
+  REACT: { name: "React", icon: ReactIcon },
+  FIRE: { name: "Firebase", icon: FirebaseIcon },
+  MUI: { name: "Material UI", icon: MaterialUiIcon },
+  JS: { name: "JavaScript", icon: JSIcon },
+  JAVA: { name: "Java", icon: JavaIcon },
+  SQL: { name: "SQL", icon: SQLIcon },
+  MYSQL: { name: "MySQL", icon: MySQLIcon },
+  TAILWIND: { name: "Tailwind", icon: TailwindIcon },
+  SPRING: { name: "Spring", icon: SpringIcon },
+  NEXT: { name: "Next.js", icon: NextJSIcon },
+  TS: { name: "TypeScript", icon: TSIcon },
 };
 
 const PROJECTS = [
   {
+    title: "Excertia",
+    description:
+      "Plataforma SaaS para registro y búsqueda de empresas con sistemas de gestión certificados. Stack: Next.js 15, React 19, Supabase, Stripe, Resend.",
+    image: "/excertia.png",
+    tags: [TAGS.NEXT, TAGS.REACT],
+    status: "en desarrollo",
+  },
+  {
+    title: "Plataforma de cumplimiento normativo",
+    description:
+      "Sistema interno para una organización con varios centros. Descompone las normativas que le aplican en obligaciones concretas, las asigna a los centros que correspondan, gestiona las auditorías asociadas y permite consultar el estado de cumplimiento por centro o de toda la organización. React, TypeScript, Material UI, Supabase.",
+    image: "/cumplimiento.png",
+    tags: [TAGS.REACT, TAGS.TS],
+    status: "privado",
+  },
+  {
     title: "AudSys",
     description:
-      "AudSys es una aplicación pensada para ayudar a pequeñas empresas a tener controlados sus procesos de calidad. Permite organizar auditorías, registrar lo que se encuentra en ellas, asignar responsables y hacer seguimiento de las acciones que hay que tomar.",
+      "Aplicación para ayudar a pequeñas empresas a controlar sus procesos de calidad. Organiza auditorías, registra hallazgos, asigna responsables y hace seguimiento de acciones.",
     github: "https://github.com/alexisabels/audsys",
-    image: "./audsys.jpg",
+    image: "/audsys.jpg",
     tags: [TAGS.JAVA, TAGS.MYSQL, TAGS.SPRING],
   },
   {
     title: "Waving Social",
     description:
-      "Red social hecha con React, con funcionalidades como creación de posts, varias timelines, comentarios, perfiles, seguimiento... Gestión de autenticación y base de datos mediante Firebase.",
+      "Red social con React: publicaciones, timelines, comentarios, perfiles y sistema de seguimiento. Autenticación y base de datos en Firebase.",
     github: "https://github.com/alexisabels/waving",
     link: "https://wavingsocial.web.app/",
-    image: "./waving.png",
+    image: "/waving.png",
     tags: [TAGS.REACT, TAGS.FIRE, TAGS.MUI],
   },
   {
-    title: "InvoicePRO (En desarrollo)",
+    title: "InvoicePRO",
     description:
-      "Sistema de gestión empresarial con JSP, JPA y JDBC. Administra inventarios, clientes, usuarios y ventas. Datos almacenados en MySQL.",
+      "Sistema de gestión empresarial con JSP, JPA y JDBC. Administra inventarios, clientes, usuarios y ventas sobre MySQL.",
     github: "https://github.com/alexisabels/InvoicePro",
-    image: "./invoice.png",
+    image: "/invoice.png",
     tags: [TAGS.JAVA, TAGS.MYSQL],
+    status: "en desarrollo",
   },
   {
-    title: "Gasolineras - España",
+    title: "Gasolineras España",
     description:
-      "Aplicación web que permite buscar gasolineras en España por municipio y consultar sus precios de combustible y horarios de apertura.",
+      "Busca gasolineras por municipio y consulta precios de combustible y horarios de apertura en tiempo real.",
     github: "https://github.com/alexisabels/info-carburantes",
     link: "https://carburantes.alexisabel.com/",
-    image: "./gasolineras.png",
+    image: "/gasolineras.png",
     tags: [TAGS.REACT, TAGS.JS],
   },
   {
-    title: "CineKino (En desarrollo)",
+    title: "CineKino",
     description:
-      "Aplicación web para la gestión y seguimiento de películas. Permite a los usuarios hacer seguimiento de sus películas vistas, escribir reseñas o seguir a otros usuarios. Desarrollada con React y Firebase para autenticación y base de datos.",
+      "Seguimiento de películas vistas, reseñas y red de usuarios. React + Firebase para auth y base de datos.",
     github: "https://github.com/alexisabels/cinekino",
     link: "https://cinekino.alexisabel.com/",
-    image: "./cinekino.png",
+    image: "/cinekino.png",
     tags: [TAGS.REACT, TAGS.FIRE, TAGS.TAILWIND],
+    status: "en desarrollo",
   },
   {
     title: "Rijksgalerij",
     description:
-      "Aplicación web que permite a los usuarios explorar y buscar en la colección de arte del Rijksmuseum de Ámsterdam. Utiliza la API oficial del Rijksmuseum para obtener información detallada sobre obras de arte.",
+      "Explora y busca en la colección del Rijksmuseum de Ámsterdam a través de su API oficial.",
     github: "https://github.com/alexisabels/rijksgalerij",
     link: "https://rijksmuseum.alexisabel.com/",
-    image: "./rijksgalerij.png",
+    image: "/rijksgalerij.png",
     tags: [TAGS.REACT, TAGS.MUI],
   },
   {
     title: "Porra LaLiga",
     description:
-      "Web para consultar resultados de La Liga y realizar apuestas ficticias usando JSP, JPA, JSTL, Ajax y una BBDD en Oracle.",
+      "Consulta resultados de La Liga y apuestas ficticias. JSP, JPA, JSTL, Ajax y Oracle DB.",
     github: "https://github.com/alexisabels/LALIGA",
-    image: "./laliga.png",
+    image: "/laliga.png",
     tags: [TAGS.JAVA, TAGS.SQL],
   },
-
   {
     title: "Biblioteca JSP",
     description:
-      "Proyecto de gestión de Biblioteca con JSP y acceso a una base de datos en Oracle con JDBC. Incluye sistema de penalización.",
+      "Gestión de biblioteca con JSP y acceso a Oracle vía JDBC. Incluye sistema de penalización por retrasos.",
     github: "https://github.com/alexisabels/biblioteca-jsp",
-    image: "./biblioteca.png",
+    image: "/biblioteca.png",
     tags: [TAGS.JAVA, TAGS.SQL],
   },
   {
     title: "The Cocktail DB",
     description:
-      "Práctica de una aplicación web SPA basada en React sobre la API de TheCocktailDB. se muestran cócteles, con sus recetas e ingredientes. búsqueda de cócteles por nombre y por ingrediente.",
+      "SPA sobre la API de TheCocktailDB. Recetas, ingredientes y búsqueda por nombre o ingrediente.",
     github: "https://github.com/alexisabels/thecocktaildb",
-    image: "./cocktail.png",
+    image: "/cocktail.png",
     link: "https://cocktail.alexisabel.com/",
     tags: [TAGS.REACT],
   },
-  /*
-  {
-    title: "Cook Buddy (React Native)",
-    description:
-      "App básica hecha con React Native para crear recetas y guardarlas en el localStorage.",
-    github: "https://github.com/alexisabels/CookBuddy",
-    link: "https://snack.expo.dev/@alexisabels/github.com-alexisabels-cookbuddy",
-    image: "./cooknative.png",
-    tags: [TAGS.REACTNATIVE],
-  }, 
-  {
-    title: "Generador DNI-NIE",
-    description: "Web para generar NIF y NIE válidos.",
-    github: "https://github.com/alexisabels/verifica-nif-nie",
-    link: "https://dni.alexisabel.com",
-    image: "./dni.png",
-    tags: [TAGS.REACT, TAGS.JS],
-  },
-   {
-    title: "Recipes App",
-    description:
-      "Web hecha con React y Tailwind que consume datos de una API de recetas. Permite agregar recetas a una lista de favoritos, que se guarda en el localStorage",
-    github: "https://github.com/alexisabels/app-recetas",
-    link: "https://recipes.alexisabel.com/",
-    image: "./recipes.png",
-    tags: [TAGS.REACT, TAGS.TAILWIND],
-  },
-  {
-    title: "SpaceX Launches",
-    description:
-      "Web simple hecha con Astro que muestra lanzamientos de SpaceX, si fueron exitosos o no, páginas para cada lanzamiento, descripción y enlace a la retransmisión.",
-    github: "https://github.com/alexisabels/app-recetas",
-    link: "https://launches.alexisabel.com/",
-    image: "./spacex.png",
-    tags: [TAGS.ASTRO, TAGS.TAILWIND],
-  }, 
-    {
-    title: "The Cocktail DB",
-    description:
-      "Práctica de una aplicación web SPA basada en React sobre la API de TheCocktailDB. se muestran cócteles, con sus recetas e ingredientes. búsqueda de cócteles por nombre y por ingrediente.",
-    github: "https://github.com/alexisabels/thecocktaildb",
-    image: "./cocktail.png",
-    link: "https://cocktail.alexisabel.com/",
-    tags: [TAGS.REACT],
-  },
-    {
-    title: "Crypto News",
-    description:
-      "App hecha con React Native que muestra precios de diversas criptomonedas (API de Coingecko), su tendencia, y una screen de noticias (API de Newsdata).",
-    github: "https://github.com/alexisabels/crypto-native",
-    link: "https://snack.expo.dev/@alexisabels/github.com-alexisabels-crypto-native",
-    image: "./crypto.png",
-    tags: [TAGS.REACTNATIVE],
-  },
-  */
 ];
+
+const initial = PROJECTS.slice(0, 4);
+const rest = PROJECTS.slice(4);
 ---
 
-<div
-  class="grid grid-cols-1 mt-5 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
-  id="projects-container"
->
-  {
-    PROJECTS.slice(0, 4).map(
-      ({ image, title, description, tags, github, link }) => (
-        <div class="relative group bg-white dark:bg-neutral-900 transition p-5 rounded-md shadow-sm flex flex-col justify-between overflow-hidden border border-gray-200 dark:border-gray-700">
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none z-10" />
-          <div class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none z-20">
-            <span class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
-            <span class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
-            <span class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
-            <span class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
-          </div>
-          <div class="text-center relative z-30">
+<div class="relative" id="projects-section">
+  <!-- lightbox dialog -->
+  <dialog
+    id="image-dialog"
+    class="bg-transparent p-0 max-w-[95vw] max-h-[95vh] backdrop:bg-ink/85 backdrop:backdrop-blur-sm m-auto"
+  >
+    <div class="relative">
+      <img
+        id="image-dialog-img"
+        alt=""
+        class="block max-w-[95vw] max-h-[95vh] object-contain border border-hairline bg-paper cursor-zoom-out"
+      />
+      <button
+        id="image-dialog-close"
+        type="button"
+        aria-label="Cerrar"
+        class="absolute top-3 right-3 size-9 flex items-center justify-center bg-paper/90 backdrop-blur-sm border border-hairline text-ink hover:text-accent transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="size-4"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Project list -->
+  <ol id="projects-list" class="flex flex-col border-t border-hairline">
+    {
+      initial.map((project) => (
+        <li
+          class="project-row group grid grid-cols-12 gap-4 md:gap-8 py-6 md:py-8 border-b border-hairline transition-colors duration-200 hover:bg-paper-raised/50"
+          data-image={project.image}
+        >
+          <button
+            type="button"
+            aria-label={`Ampliar imagen de ${project.title}`}
+            data-image={project.image}
+            data-cursor-label="Ver"
+            class="open-image col-span-12 md:col-span-5 block cursor-zoom-in"
+          >
             <img
-              class="w-full h-56 rounded-lg object-cover object-top mb-6 min-h-72"
-              src={image}
-              alt={title}
+              src={project.image}
+              alt={project.title}
               loading="lazy"
+              class="w-full aspect-[16/10] object-cover object-top border border-hairline transition-opacity hover:opacity-90"
             />
-            <h3 class="text-2xl font-bold mb-2 text-black dark:text-white">
-              {title}
-            </h3>
-            <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
-              {tags.map((tag) => (
-                <a
-                  href={tag.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class={`flex  hover:bg-opacity-70 transition duration-150 items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
-                >
-                  <tag.icon class="size-4" />
-                  {tag.name}
-                </a>
+          </button>
+
+          <div class="col-span-12 md:col-span-7 flex flex-col gap-4 md:gap-5">
+            <div class="flex flex-wrap items-baseline gap-3">
+              <h3 class="font-display font-semibold text-ink tracking-tight2 leading-[1] text-[clamp(1.5rem,3.5vw,2.5rem)] group-hover:text-accent transition-colors">
+                {project.title}
+              </h3>
+              {project.status && (
+                <span class="text-accent text-xs uppercase tracking-label font-mono">
+                  {project.status}
+                </span>
+              )}
+            </div>
+
+            <p class="text-ink-muted text-sm md:text-base leading-[1.55] max-w-2xl">
+              {project.description}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+              {project.tags.map((tag) => (
+                <span class="inline-flex items-center gap-1.5 text-ink-muted text-xs md:text-sm">
+                  <tag.icon class="size-3.5" />
+                  <span>{tag.name}</span>
+                </span>
               ))}
             </div>
-            <p class="text-gray-800 dark:text-white text-center mb-4">
-              {description}
-            </p>
-          </div>
-          <div class="mt-auto flex items-center justify-center gap-5 relative z-30">
-            {github && (
-              <a
-                href={github}
-                role="link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
-              >
-                <GithubIcon class="size-5 mr-2" />
-                <span>Código</span>
-              </a>
-            )}
-            {link && (
-              <a
-                href={link}
-                role="link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
-              >
-                <LinkIcon class="size-5 mr-2" />
-                <span>Enlace</span>
-              </a>
-            )}
-          </div>
-        </div>
-      )
-    )
-  }
-</div>
 
-<div class="hidden" id="more-projects">
-  <div
-    class="grid grid-cols-1 mt-5 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
-  >
-    {
-      PROJECTS.slice(4).map(
-        ({ image, title, description, tags, github, link }) => (
-          <div class="relative group bg-white dark:bg-neutral-900 transition p-5 rounded-md shadow-sm flex flex-col justify-between overflow-hidden border border-gray-200 dark:border-gray-700">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none z-10" />
-            <div class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none z-20">
-              <span class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
-              <span class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
-              <span class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full" />
-              <span class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full" />
-            </div>
-            <div class="text-center relative z-30">
-              <img
-                class="w-full h-56 rounded-lg object-cover object-top mb-6 min-h-72"
-                src={image}
-                alt={title}
-                loading="lazy"
-              />
-              <h3 class="text-2xl font-bold mb-2 text-black dark:text-white">
-                {title}
-              </h3>
-              <div class="flex flex-wrap gap-2 mb-4 items-center justify-center">
-                {tags.map((tag) => (
-                  <a
-                    href={tag.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class={`flex  hover:bg-opacity-70 transition duration-150 items-center gap-2 px-2 py-1 rounded-[3.5px] text-sm font-semibold select-none ${tag.class}`}
-                  >
-                    <tag.icon class="size-4" />
-                    {tag.name}
-                  </a>
-                ))}
-              </div>
-              <p class="text-gray-800 dark:text-white text-center mb-4">
-                {description}
-              </p>
-            </div>
-            <div class="mt-auto flex items-center justify-center gap-5 relative z-30">
-              {github && (
+            <div class="flex items-center gap-5 md:mt-auto pt-1">
+              {project.github && (
                 <a
-                  href={github}
-                  role="link"
+                  href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
+                  aria-label="Código"
+                  class="text-ink-muted hover:text-accent transition-colors"
                 >
-                  <GithubIcon class="size-5 mr-2" />
-                  <span>Código</span>
+                  <GithubIcon class="size-5" />
                 </a>
               )}
-              {link && (
+              {project.link && (
                 <a
-                  href={link}
-                  role="link"
+                  href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex w-28 justify-center items-center transition duration-200 rounded p-1 text-blue-700 hover:text-blue-500 dark:text-blue-300 hover:dark:text-blue-200"
+                  aria-label="Visitar"
+                  class="text-ink-muted hover:text-accent transition-colors"
                 >
-                  <LinkIcon class="size-5 mr-2" />
-                  <span>Enlace</span>
+                  <LinkIcon class="size-5" />
                 </a>
               )}
             </div>
           </div>
-        )
-      )
+        </li>
+      ))
     }
+  </ol>
+
+  <ol id="more-projects" class="hidden flex-col border-b border-hairline">
+    {
+      rest.map((project) => (
+        <li
+          class="project-row group grid grid-cols-12 gap-4 md:gap-8 py-6 md:py-8 border-b border-hairline last:border-b-0 transition-colors duration-200 hover:bg-paper-raised/50"
+          data-image={project.image}
+        >
+          <button
+            type="button"
+            aria-label={`Ampliar imagen de ${project.title}`}
+            data-image={project.image}
+            data-cursor-label="Ver"
+            class="open-image col-span-12 md:col-span-5 block cursor-zoom-in"
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              loading="lazy"
+              class="w-full aspect-[16/10] object-cover object-top border border-hairline transition-opacity hover:opacity-90"
+            />
+          </button>
+
+          <div class="col-span-12 md:col-span-7 flex flex-col gap-4 md:gap-5">
+            <div class="flex flex-wrap items-baseline gap-3">
+              <h3 class="font-display font-semibold text-ink tracking-tight2 leading-[1] text-[clamp(1.5rem,3.5vw,2.5rem)] group-hover:text-accent transition-colors">
+                {project.title}
+              </h3>
+              {project.status && (
+                <span class="text-accent text-xs uppercase tracking-label font-mono">
+                  {project.status}
+                </span>
+              )}
+            </div>
+
+            <p class="text-ink-muted text-sm md:text-base leading-[1.55] max-w-2xl">
+              {project.description}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+              {project.tags.map((tag) => (
+                <span class="inline-flex items-center gap-1.5 text-ink-muted text-xs md:text-sm">
+                  <tag.icon class="size-3.5" />
+                  <span>{tag.name}</span>
+                </span>
+              ))}
+            </div>
+
+            <div class="flex items-center gap-5 md:mt-auto pt-1">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Código"
+                  class="text-ink-muted hover:text-accent transition-colors"
+                >
+                  <GithubIcon class="size-5" />
+                </a>
+              )}
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visitar"
+                  class="text-ink-muted hover:text-accent transition-colors"
+                >
+                  <LinkIcon class="size-5" />
+                </a>
+              )}
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="mt-8 flex items-center gap-4 flex-wrap">
+    <button
+      id="view-more-btn"
+      class="inline-flex items-center gap-3 text-ink hover:text-accent transition-colors text-base font-medium"
+      data-more-label="Ver más"
+      data-less-label="Ver menos"
+    >
+      <span id="view-more-label">Ver más</span>
+      <span
+        id="view-more-arrow"
+        class="inline-block transition-transform duration-300"
+        aria-hidden="true">→</span
+      >
+    </button>
+    <span class="text-ink-muted text-sm">
+      o todo en
+      <a
+        href="https://github.com/alexisabels"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-ink hover:text-accent underline decoration-hairline underline-offset-4 hover:decoration-accent transition-colors"
+        >GitHub</a
+      >
+    </span>
   </div>
 </div>
 
-<div class="flex justify-center mt-10 mb-8">
-  <button
-    id="view-more-btn"
-    class="group relative px-8 py-3 font-medium text-gray-700 dark:text-white border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-  >
-    <span class="relative z-10">Ver más proyectos</span>
-    <div
-      class="absolute inset-0 border border-transparent rounded-md transition-all duration-200 pointer-events-none"
-    >
-      <span
-        class="ease absolute left-0 opacity-20 top-0 h-0 w-0 border-t-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full"
-      ></span>
-      <span
-        class="ease absolute right-0 opacity-20 top-0 h-0 w-0 border-r-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full"
-      ></span>
-      <span
-        class="ease absolute bottom-0 opacity-20 right-0 h-0 w-0 border-b-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:w-full"
-      ></span>
-      <span
-        class="ease absolute bottom-0 opacity-20 left-0 h-0 w-0 border-l-2 border-gray-600 dark:border-blue-300 transition-all duration-200 group-hover:h-full"
-      ></span>
-    </div>
-    <div
-      class="absolute inset-0 bg-gradient-to-r from-transparent to-blue-200 dark:to-blue-900 opacity-0 group-hover:opacity-5 transition duration-200 pointer-events-none"
-    >
-    </div>
-  </button>
-</div>
-
-<p
-  class="text-2xl text-center mt-8 animate-background-shine bg-[linear-gradient(110deg,#939393,45%,#1e293b,55%,#939393)] bg-[length:250%_100%] bg-clip-text text-transparent"
->
-  Puedes ver todos mis proyectos en mi <a
-    href="https://github.com/alexisabels"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 dark:hover:text-white hover:text-black hover:underline transition-all duration-300"
-  >
-    GitHub
-  </a>
-</p>
-
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const viewMoreBtn = document.getElementById("view-more-btn");
-    const moreProjects = document.getElementById("more-projects");
+  document.addEventListener("DOMContentLoaded", () => {
+    // Lightbox
+    const dialog = document.getElementById(
+      "image-dialog"
+    ) as HTMLDialogElement | null;
+    const dialogImg = document.getElementById(
+      "image-dialog-img"
+    ) as HTMLImageElement | null;
+    const closeBtn = document.getElementById("image-dialog-close");
 
-    if (viewMoreBtn) {
-      viewMoreBtn.addEventListener("click", function () {
-        if (moreProjects) {
-          moreProjects.classList.toggle("hidden");
+    const bindOpen = (root: Document | HTMLElement) => {
+      root.querySelectorAll<HTMLButtonElement>(".open-image").forEach((btn) => {
+        if (btn.dataset.bound === "1") return;
+        btn.dataset.bound = "1";
+        btn.addEventListener("click", () => {
+          const src = btn.dataset.image;
+          if (src && dialogImg && dialog) {
+            dialogImg.src = src;
+            dialog.showModal();
+          }
+        });
+      });
+    };
+    bindOpen(document);
+
+    closeBtn?.addEventListener("click", () => dialog?.close());
+    dialogImg?.addEventListener("click", () => dialog?.close());
+    dialog?.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    const btn = document.getElementById("view-more-btn");
+    const more = document.getElementById("more-projects");
+    const label = document.getElementById("view-more-label");
+    const arrow = document.getElementById("view-more-arrow");
+    if (btn && more && label && arrow) {
+      btn.addEventListener("click", () => {
+        const isHidden = more.classList.contains("hidden");
+        more.classList.toggle("hidden", !isHidden);
+        more.classList.toggle("flex", isHidden);
+
+        if (isHidden) {
+          bindOpen(more);
         }
 
-        if (moreProjects && moreProjects.classList.contains("hidden")) {
-          viewMoreBtn.textContent = "Ver más proyectos";
-        } else {
-          viewMoreBtn.textContent = "Ver menos";
-        }
+        label.textContent = isHidden
+          ? (btn as HTMLElement).dataset.lessLabel || "Ver menos"
+          : (btn as HTMLElement).dataset.moreLabel || "Ver más";
+        arrow.style.transform = isHidden ? "rotate(90deg)" : "rotate(0deg)";
       });
     }
   });

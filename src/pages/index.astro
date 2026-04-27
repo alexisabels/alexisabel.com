@@ -1,81 +1,63 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Theme from "../components/Theme.astro";
-import SContainer from "../components/SContainer.astro";
 import Presentation from "../components/Presentation.astro";
+import SectionHeading from "../components/SectionHeading.astro";
 import Skills from "../components/Skills.astro";
 import Experience from "../components/Experience.astro";
 import About from "../components/About.astro";
 import Projects from "../components/Projects.astro";
-import Learning from "../components/Learning.astro";
-import ExtraSkills from "../components/ExtraSkills.astro";
-import TypedText from "../components/TypedText.astro";
 
 const links = [
-  { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "Github" },
+  { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "GitHub" },
   {
     href: "https://linkedin.com/in/alexisabel",
     icon: "LinkedInIcon",
     alt: "LinkedIn",
   },
-  { href: "mailto:isabelsanchezalex@gmail.com", icon: "MailIcon", alt: "Mail" },
-  { href: "./AlejandroIsabelCV.pdf", icon: "CVIcon", alt: "CV" },
+  { href: "mailto:isabelsanchezalex@gmail.com", icon: "MailIcon", alt: "Email" },
+  { href: "/AlejandroIsabelCV.pdf", icon: "CVIcon", alt: "CV" },
 ];
+
+const YEAR = new Date().getFullYear();
 ---
 
-<Layout title="Alejandro Isabel">
-  <main>
-    <Theme />
-    <SContainer>
-      <Presentation
-        name="Alejandro Isabel"
-        description="Desarrollador de Aplicaciones Web | Java & React"
-        location="Toledo"
-        imageUrl="./nueva.png"
-        links={links}
-      />
-    </SContainer>
-    <TypedText />
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Sobre mí /&gt;
-      </h1>
+<Layout title="Alejandro Isabel — Desarrollador de software">
+  <Theme />
+
+  <main class="w-full max-w-[1240px] mx-auto">
+    <Presentation
+      name="Alejandro Isabel"
+      location="Toledo"
+      imageUrl="/nueva.png"
+      links={links}
+    />
+
+    <section class="in-view pb-24 md:pb-32">
+      <SectionHeading title="Sobre mí" />
       <About />
-    </SContainer>
+    </section>
 
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Experiencia Laboral /&gt;
-      </h1>
+    <section class="in-view pb-24 md:pb-32">
+      <SectionHeading title="Experiencia" />
       <Experience />
-    </SContainer>
+    </section>
 
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Skills /&gt;
-      </h1>
+    <section class="in-view pb-24 md:pb-32">
+      <SectionHeading title="Stack" />
       <Skills />
-    </SContainer>
+    </section>
 
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Herramientas & Plataformas /&gt;
-      </h1>
-      <ExtraSkills />
-    </SContainer>
-
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Proyectos /&gt;
-      </h1>
+    <section class="in-view pb-24 md:pb-32">
+      <SectionHeading title="Proyectos" />
       <Projects />
-    </SContainer>
+    </section>
 
-    <SContainer>
-      <h1 class="text-4xl font-bold select-none dark:text-white text-gray-900">
-        &lt;Aprendiendo /&gt;
-      </h1>
-      <Learning />
-    </SContainer>
+    <footer
+      class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-hairline py-8 md:py-10 text-sm text-ink-muted"
+    >
+      <span>© {YEAR} Alejandro Isabel</span>
+      <span>Toledo, España</span>
+    </footer>
   </main>
 </Layout>

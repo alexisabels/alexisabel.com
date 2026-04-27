@@ -1,0 +1,265 @@
+---
+---
+
+<div id="custom-cursor" class="shape-default" aria-hidden="true">
+  <span class="cursor-shape default">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.5 3.21l13.04 8.95a.5.5 0 0 1-.16.9l-5.83 1.34a.5.5 0 0 0-.36.3l-2.34 5.6a.5.5 0 0 1-.94-.06L4.85 4.06a.5.5 0 0 1 .65-.85z"
+        fill="rgb(var(--accent))"
+      />
+    </svg>
+  </span>
+
+  <span class="cursor-shape pointer">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10 2.5C8.9 2.5 8.5 3.4 8.5 4.5V13H8L5.5 11C4.5 10.3 3 11 3 12.5C3 13 3.2 13.5 3.6 13.9L7.5 18.5C8.6 19.9 10.4 20.5 12 20.5H14.5C17.5 20.5 19.5 18.5 19.5 15.5V10.5C19.5 9.4 18.6 9 17.7 9.5C17.5 9 17 8.5 16.2 8.5C15.4 8.5 14.9 9 14.7 9.5C14.5 9 14 8.5 13.2 8.5C12.7 8.5 12.3 8.7 12 9V4.5C12 3.4 11.1 2.5 10 2.5Z"
+        fill="rgb(var(--accent))"
+      />
+    </svg>
+  </span>
+
+  <span class="cursor-shape zoom">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="9"
+        cy="9"
+        r="6"
+        fill="rgb(var(--paper))"
+        stroke="rgb(var(--accent))"
+        stroke-width="2.25"
+      />
+      <line
+        x1="13.5"
+        y1="13.5"
+        x2="20"
+        y2="20"
+        stroke="rgb(var(--accent))"
+        stroke-width="2.5"
+        stroke-linecap="round"
+      />
+      <line
+        x1="6"
+        y1="9"
+        x2="12"
+        y2="9"
+        stroke="rgb(var(--accent))"
+        stroke-width="1.75"
+        stroke-linecap="round"
+      />
+      <line
+        x1="9"
+        y1="6"
+        x2="9"
+        y2="12"
+        stroke="rgb(var(--accent))"
+        stroke-width="1.75"
+        stroke-linecap="round"
+      />
+    </svg>
+  </span>
+
+  <span id="custom-cursor-label"></span>
+</div>
+
+<style is:global>
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    *,
+    *::before,
+    *::after {
+      cursor: none !important;
+    }
+    dialog,
+    dialog * {
+      cursor: revert !important;
+    }
+    dialog #image-dialog-img {
+      cursor: zoom-out !important;
+    }
+  }
+</style>
+
+<style>
+  #custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translate3d(-100px, -100px, 0);
+    will-change: transform;
+  }
+
+  .cursor-shape {
+    display: none;
+    line-height: 0;
+  }
+
+  .cursor-shape svg {
+    filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.55))
+      drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+    display: block;
+  }
+
+  #custom-cursor.shape-default .cursor-shape.default,
+  #custom-cursor.shape-pointer .cursor-shape.pointer,
+  #custom-cursor.shape-zoom .cursor-shape.zoom {
+    display: inline-flex;
+  }
+
+  #custom-cursor.is-hover .cursor-shape svg {
+    transform: scale(1.15);
+  }
+
+  #custom-cursor-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: rgb(var(--paper));
+    background: rgb(var(--accent));
+    padding: 4px 9px;
+    white-space: nowrap;
+    display: none;
+  }
+
+  #custom-cursor.has-label #custom-cursor-label {
+    display: inline-block;
+  }
+
+  @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+    #custom-cursor {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cursor = document.getElementById("custom-cursor");
+    const labelEl = document.getElementById("custom-cursor-label");
+    if (!cursor || !labelEl) return;
+
+    const supports = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
+    ).matches;
+    if (!supports) return;
+
+    type Shape = "default" | "pointer" | "zoom";
+
+    const OFFSETS: Record<Shape, { x: number; y: number }> = {
+      default: { x: -4, y: -2 },
+      pointer: { x: -10, y: -2 },
+      zoom: { x: -9, y: -9 },
+    };
+
+    let onScreen = false;
+    let dialogOpen = false;
+    let offsetX = OFFSETS.default.x;
+    let offsetY = OFFSETS.default.y;
+    let lastX = -100;
+    let lastY = -100;
+
+    const updateVisibility = () => {
+      cursor.style.opacity = onScreen && !dialogOpen ? "1" : "0";
+    };
+
+    const setShape = (shape: Shape) => {
+      cursor.classList.remove("shape-default", "shape-pointer", "shape-zoom");
+      cursor.classList.add(`shape-${shape}`);
+      offsetX = OFFSETS[shape].x;
+      offsetY = OFFSETS[shape].y;
+      cursor.style.transform = `translate3d(${lastX + offsetX}px, ${lastY + offsetY}px, 0)`;
+    };
+
+    document.querySelectorAll("dialog").forEach((dlg) => {
+      const obs = new MutationObserver(() => {
+        dialogOpen = !!document.querySelector("dialog[open]");
+        updateVisibility();
+      });
+      obs.observe(dlg, { attributes: true, attributeFilter: ["open"] });
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      cursor.style.transform = `translate3d(${lastX + offsetX}px, ${lastY + offsetY}px, 0)`;
+      if (!onScreen) {
+        onScreen = true;
+        updateVisibility();
+      }
+    });
+
+    document.addEventListener("mouseleave", () => {
+      onScreen = false;
+      updateVisibility();
+    });
+
+    const setLabel = (text: string) => {
+      labelEl.textContent = text;
+      cursor.classList.toggle("has-label", !!text);
+    };
+
+    const getLabel = (el: HTMLElement): string => {
+      if (el.dataset.cursorLabel !== undefined) return el.dataset.cursorLabel;
+      const aria = el.getAttribute("aria-label");
+      if (aria && aria.length <= 12) return aria;
+      return "";
+    };
+
+    const getShape = (el: HTMLElement): Shape => {
+      if (el.classList.contains("open-image")) return "zoom";
+      if (el.tagName === "A" || el.tagName === "BUTTON") return "pointer";
+      return "default";
+    };
+
+    const bindHover = (el: HTMLElement) => {
+      const shape = getShape(el);
+      const text = getLabel(el);
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("is-hover");
+        setShape(shape);
+        if (text) setLabel(text);
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("is-hover");
+        setShape("default");
+        if (text) setLabel("");
+      });
+    };
+
+    const bindAll = () => {
+      document.querySelectorAll<HTMLElement>("a, button").forEach((el) => {
+        if (el.dataset.cursorBound === "1") return;
+        el.dataset.cursorBound = "1";
+        bindHover(el);
+      });
+    };
+
+    bindAll();
+    const mo = new MutationObserver(bindAll);
+    mo.observe(document.body, { childList: true, subtree: true });
+  });
+</script>

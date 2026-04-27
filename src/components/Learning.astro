@@ -4,16 +4,13 @@ import ElectronIcon from "./icons/ElectronIcon.astro";
 import TSIcon from "./icons/TSIcon.astro";
 import ReactNativeIcon from "./icons/ReactNativeIcon.astro";
 import NodeIcon from "./icons/NodeIcon.astro";
-import SpringIcon from "./icons/SpringIcon.astro";
 import AngularIcon from "./icons/AngularIcon.astro";
 
 const SKILLS = [
   { name: "Angular 19", icon: AngularIcon, url: "https://www.angular.io/" },
   { name: "TypeScript", icon: TSIcon, url: "https://www.typescriptlang.org/" },
-
   { name: "Node.js", icon: NodeIcon, url: "https://nodejs.org/" },
   { name: "Next.js", icon: NextJSIcon, url: "https://nextjs.org/" },
-
   { name: "Electron", icon: ElectronIcon, url: "https://www.electronjs.org/" },
   {
     name: "React Native",
@@ -23,34 +20,22 @@ const SKILLS = [
 ];
 ---
 
-<style>
-  .skill-name {
-    opacity: 1;
-    transition: opacity 0.3s;
-  }
-  .skill-container:hover .skill-name {
-    opacity: 1;
-  }
-</style>
-
-<div class="container mx-auto mt-8 space-y-10">
-  <div class="flex gap-x-10 gap-y-1 flex-wrap justify-start">
-    {
-      SKILLS.map((skill) => (
+<ul class="flex flex-wrap gap-x-3 gap-y-3">
+  {
+    SKILLS.map((skill) => (
+      <li>
         <a
           href={skill.url}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex flex-col items-center skill-container"
+          class="group inline-flex items-center gap-3 px-4 py-3 border border-hairline hover:border-accent transition-colors"
         >
-          <div class="size-28 bg-white dark:bg-gray-700 rounded-xl shadow-md flex items-center justify-center transition-transform transform hover:-translate-y-1 hover:shadow-lg">
-            <skill.icon class="size-20" />
-          </div>
-          <p class="mt-2 text-center text-gray-800 dark:text-gray-200 text-md font-semibold skill-name">
+          <skill.icon class="size-5" />
+          <span class="text-ink text-base font-medium group-hover:text-accent transition-colors">
             {skill.name}
-          </p>
+          </span>
         </a>
-      ))
-    }
-  </div>
-</div>
+      </li>
+    ))
+  }
+</ul>
