@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.alexisabel.com/sitemap-index.xml
+Sitemap: https://alexisabel.com/sitemap-index.xml
