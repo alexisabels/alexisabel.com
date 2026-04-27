@@ -12,9 +12,4 @@ export default defineConfig({
   adapter: vercel({
     webAnalytics: { enabled: true },
   }),
-  i18n: {
-    defaultLocale: "es", 
-    locales: ["es", "en"],
-
-  },
 });
