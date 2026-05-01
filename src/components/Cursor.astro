@@ -111,20 +111,22 @@
   }
 
   .cursor-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: none;
     line-height: 0;
+    transform-origin: 0 0;
   }
 
-  #custom-cursor-label {
-    position: absolute;
-    top: 50%;
-    left: calc(100% + 10px);
-    transform: translateY(-50%);
+  .cursor-shape.default {
+    transform: translate(-4px, -2px);
   }
-
-  #custom-cursor.flip-label #custom-cursor-label {
-    left: auto;
-    right: calc(100% + 10px);
+  .cursor-shape.pointer {
+    transform: translate(-10px, -2px);
+  }
+  .cursor-shape.zoom {
+    transform: translate(-9px, -9px);
   }
 
   .cursor-shape svg {
@@ -139,11 +141,11 @@
     display: inline-flex;
   }
 
-  #custom-cursor.is-hover .cursor-shape svg {
-    transform: scale(1.15);
-  }
-
   #custom-cursor-label {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
     font-family: "JetBrains Mono", monospace;
     font-size: 0.7rem;
     letter-spacing: 0.04em;
@@ -152,10 +154,16 @@
     padding: 4px 9px;
     white-space: nowrap;
     display: none;
+    pointer-events: none;
+  }
+
+  #custom-cursor.flip-label #custom-cursor-label {
+    left: auto;
+    right: calc(100% + 10px);
   }
 
   #custom-cursor.has-label #custom-cursor-label {
-    display: inline-block;
+    display: block;
   }
 
   @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
@@ -178,29 +186,28 @@
 
     type Shape = "default" | "pointer" | "zoom";
 
-    const OFFSETS: Record<Shape, { x: number; y: number }> = {
-      default: { x: -4, y: -2 },
-      pointer: { x: -10, y: -2 },
-      zoom: { x: -9, y: -9 },
-    };
-
     let onScreen = false;
     let dialogOpen = false;
-    let offsetX = OFFSETS.default.x;
-    let offsetY = OFFSETS.default.y;
-    let lastX = -100;
-    let lastY = -100;
+    let hasMoved = false;
+    let lastX = 0;
 
     const updateVisibility = () => {
-      cursor.style.opacity = onScreen && !dialogOpen ? "1" : "0";
+      cursor.style.opacity = onScreen && !dialogOpen && hasMoved ? "1" : "0";
+    };
+
+    const updateFlip = () => {
+      if (!cursor.classList.contains("has-label")) {
+        cursor.classList.remove("flip-label");
+        return;
+      }
+      const labelWidth = labelEl.offsetWidth;
+      const wouldOverflow = lastX + 10 + labelWidth > window.innerWidth - 8;
+      cursor.classList.toggle("flip-label", wouldOverflow);
     };
 
     const setShape = (shape: Shape) => {
       cursor.classList.remove("shape-default", "shape-pointer", "shape-zoom");
       cursor.classList.add(`shape-${shape}`);
-      offsetX = OFFSETS[shape].x;
-      offsetY = OFFSETS[shape].y;
-      cursor.style.transform = `translate3d(${lastX + offsetX}px, ${lastY + offsetY}px, 0)`;
     };
 
     document.querySelectorAll("dialog").forEach((dlg) => {
@@ -211,33 +218,38 @@
       obs.observe(dlg, { attributes: true, attributeFilter: ["open"] });
     });
 
-    document.addEventListener("mousemove", (e) => {
-      lastX = e.clientX;
-      lastY = e.clientY;
-      cursor.style.transform = `translate3d(${lastX + offsetX}px, ${lastY + offsetY}px, 0)`;
-      if (!onScreen) {
-        onScreen = true;
-        updateVisibility();
-      }
-      updateFlip();
-    });
+    // 1:1 native movement — no lerp, no rAF, no transitions
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        lastX = e.clientX;
+        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        if (!hasMoved) hasMoved = true;
+        if (!onScreen) {
+          onScreen = true;
+          updateVisibility();
+        }
+        updateFlip();
+      },
+      { passive: true }
+    );
 
     document.addEventListener("mouseleave", () => {
       onScreen = false;
       updateVisibility();
     });
 
-    const updateFlip = () => {
-      if (!cursor.classList.contains("has-label")) {
-        cursor.classList.remove("flip-label");
-        return;
+    window.addEventListener("blur", () => {
+      onScreen = false;
+      updateVisibility();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        onScreen = false;
+        updateVisibility();
       }
-      const cursorRect = cursor.getBoundingClientRect();
-      const labelWidth = labelEl.offsetWidth;
-      const wouldOverflow =
-        cursorRect.right + 10 + labelWidth > window.innerWidth - 8;
-      cursor.classList.toggle("flip-label", wouldOverflow);
-    };
+    });
 
     const setLabel = (text: string) => {
       labelEl.textContent = text;
