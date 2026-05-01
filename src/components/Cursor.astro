@@ -280,6 +280,7 @@
       obs.observe(dlg, { attributes: true, attributeFilter: ["open"] });
     });
 
+    // 1:1 native movement — no lerp, no rAF, no transitions
     document.addEventListener(
       "mousemove",
       (e) => {
