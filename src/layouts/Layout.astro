@@ -3,19 +3,32 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Cursor from "../components/Cursor.astro";
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Alejandro Isabel — AI Software Engineer en Toledo. Construyo productos con IA, agentes y software a medida usando Java, Spring, React y Python.",
+  image = "/nueva.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL(image, Astro.site).toString();
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="description" content={description} />
     <meta
-      name="description"
-      content="Alejandro Isabel — Desarrollador de software en Toledo. Java, Spring y React."
+      name="keywords"
+      content="Alejandro Isabel, AI Software Engineer, ingeniero de software IA, desarrollador software, Toledo, Java, Spring, React, Python, agentes IA, LLM"
     />
+    <meta name="author" content="Alejandro Isabel" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -29,6 +42,67 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Alejandro Isabel" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Alejandro Isabel",
+        alternateName: "Alex Isabel",
+        url: "https://alexisabel.com",
+        image: ogImage,
+        jobTitle: "AI Software Engineer",
+        description,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Toledo",
+          addressCountry: "ES",
+        },
+        knowsAbout: [
+          "Artificial Intelligence",
+          "Large Language Models",
+          "AI Agents",
+          "Java",
+          "Spring",
+          "React",
+          "Python",
+          "Software Engineering",
+        ],
+        sameAs: [
+          "https://github.com/alexisabels",
+          "https://linkedin.com/in/alexisabel",
+        ],
+      })}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Alejandro Isabel",
+        url: "https://alexisabel.com",
+        inLanguage: "es-ES",
+        author: {
+          "@type": "Person",
+          name: "Alejandro Isabel",
+        },
+      })}
+    />
+
     <script src="/node_modules/flowbite/dist/flowbite.js" is:client></script>
     <title>{title}</title>
   </head>
