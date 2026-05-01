@@ -3,7 +3,7 @@ import SunIcon from "./icons/Sun.astro";
 import MoonIcon from "./icons/Moon.astro";
 ---
 
-<div class="fixed top-4 right-4 md:top-6 md:right-6 z-50">
+<div class="fixed top-4 right-4 md:top-6 md:right-6 z-50 group">
   <button
     id="theme-toggle-btn"
     class="relative flex items-center justify-center size-10 border border-hairline bg-paper/70 backdrop-blur-sm text-ink hover:border-accent hover:text-accent transition-colors"
@@ -12,6 +12,12 @@ import MoonIcon from "./icons/Moon.astro";
     <SunIcon id="icon-sun" class="theme-toggle-icon size-4" />
     <MoonIcon id="icon-moon" class="theme-toggle-icon absolute size-4" />
   </button>
+  <span
+    role="tooltip"
+    class="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 mr-2 whitespace-nowrap border border-hairline bg-paper/90 backdrop-blur-sm text-ink text-xs px-2 py-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
+  >
+    Cambiar tema
+  </span>
 </div>
 
 <script is:inline>
