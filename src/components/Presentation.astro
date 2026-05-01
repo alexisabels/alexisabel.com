@@ -85,14 +85,131 @@ const surname = rest.join(" ");
     </p>
 
     <p class="slide-up delay-2 text-ink text-base md:text-lg">
-      <a
-        href="https://www.google.com/maps/place/Toledo"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="underline decoration-hairline underline-offset-4 hover:decoration-accent hover:text-accent transition-colors"
-      >
-        {location}, España
-      </a>
+      <span class="relative inline-block group/loc">
+        <a
+          href="https://www.google.com/maps/place/Toledo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline decoration-hairline underline-offset-4 hover:decoration-accent hover:text-accent transition-colors"
+        >
+          {location}, España
+        </a>
+
+        <span
+          aria-hidden="true"
+          class="hidden md:block pointer-events-none absolute z-40 right-full top-1/2 -translate-y-1/2 mr-4 w-[340px]"
+        >
+          <span
+            class="block opacity-0 motion-safe:translate-x-2 group-hover/loc:opacity-100 group-focus-within/loc:opacity-100 motion-safe:group-hover/loc:translate-x-0 motion-safe:group-focus-within/loc:translate-x-0 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.2,0.7,0.1,1)]"
+          >
+            <span
+              class="block border border-hairline bg-paper/95 backdrop-blur-md shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)]"
+            >
+              <span
+                class="block aspect-[16/10] bg-gradient-to-b from-transparent to-ink/[0.05] border-b border-hairline overflow-hidden"
+              >
+                <svg
+                  viewBox="0 0 320 180"
+                  preserveAspectRatio="xMidYEnd meet"
+                  class="block w-full h-full text-ink"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="square"
+                  stroke-linejoin="miter"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 110 C 40 100, 80 105, 130 100 S 220 95, 280 102 L 320 100 L 320 130 L 0 130 Z"
+                    fill="currentColor"
+                    fill-opacity="0.04"
+                    stroke="none"></path>
+
+                  <path d="M10 130 L10 122 L18 122 L18 117 L26 117 L26 124 L34 124 L34 130 Z"></path>
+                  <path d="M40 130 L40 113 L52 113 L52 130 Z"></path>
+                  <line x1="46" y1="120" x2="46" y2="128"></line>
+
+                  <path d="M68 130 L68 78 L94 78 L94 130 Z"></path>
+                  <path d="M72 78 L72 60 L90 60 L90 78"></path>
+                  <line x1="72" y1="68" x2="90" y2="68"></line>
+                  <path d="M74 60 L81 30 L88 60"></path>
+                  <circle cx="81" cy="28" r="1.5" fill="currentColor"></circle>
+                  <line x1="76" y1="92" x2="76" y2="125"></line>
+                  <line x1="86" y1="92" x2="86" y2="125"></line>
+                  <path d="M74 90 Q81 84 88 90"></path>
+
+                  <path d="M105 130 L105 110 L115 110 L115 105 L122 105 L122 130 Z"></path>
+                  <path d="M128 130 L128 100 L140 100 L140 130 Z"></path>
+                  <line x1="134" y1="115" x2="134" y2="125"></line>
+                  <path d="M148 130 L148 112 L158 112 L158 130 Z"></path>
+                  <path d="M165 130 L165 108 L172 108 L172 102 L182 102 L182 130 Z"></path>
+
+                  <path d="M195 130 L195 80 L265 80 L265 130 Z"></path>
+                  <path
+                    d="M195 80 L195 76 L201 76 L201 80 M207 80 L207 76 L213 76 L213 80 M219 80 L219 76 L225 76 L225 80 M231 80 L231 76 L237 76 L237 80 M243 80 L243 76 L249 76 L249 80 M255 80 L255 76 L261 76 L261 80"></path>
+                  <path d="M191 130 L191 72 L201 72 L201 130 Z"></path>
+                  <path d="M259 130 L259 72 L269 72 L269 130 Z"></path>
+                  <path d="M191 72 L196 60 L201 72"></path>
+                  <path d="M259 72 L264 60 L269 72"></path>
+                  <circle cx="196" cy="58" r="1" fill="currentColor"></circle>
+                  <circle cx="264" cy="58" r="1" fill="currentColor"></circle>
+                  <line x1="195" y1="105" x2="265" y2="105"></line>
+                  <line x1="215" y1="92" x2="215" y2="125"></line>
+                  <line x1="230" y1="92" x2="230" y2="125"></line>
+                  <line x1="245" y1="92" x2="245" y2="125"></line>
+
+                  <path d="M280 130 L280 115 L290 115 L290 130 Z"></path>
+                  <path d="M295 130 L295 120 L305 120 L305 130 Z"></path>
+                  <path d="M308 130 L308 124 L316 124 L316 130 Z"></path>
+
+                  <line x1="0" y1="130" x2="320" y2="130" stroke-opacity="0.4"></line>
+                  <path
+                    d="M0 130 Q 60 138 130 142 Q 200 145 320 138"
+                    stroke-opacity="0.2"></path>
+
+                  <path
+                    d="M0 158 Q 50 154 100 156 T 200 158 T 320 156"
+                    stroke-opacity="0.4"
+                    stroke-dasharray="3 3"></path>
+                  <path
+                    d="M0 168 Q 50 164 100 166 T 200 168 T 320 164"
+                    stroke-opacity="0.25"
+                    stroke-dasharray="2 4"></path>
+                </svg>
+              </span>
+
+              <span class="block p-4 space-y-3">
+                <span
+                  class="flex items-center justify-between text-[10px] tracking-label uppercase text-ink-muted font-mono"
+                >
+                  <span>Mirador del Valle</span>
+                  <span aria-hidden="true">↗</span>
+                </span>
+
+                <span class="block">
+                  <span
+                    class="block font-display text-3xl tracking-tight2 text-ink leading-none"
+                  >
+                    Toledo
+                  </span>
+                  <span class="block text-sm text-ink-muted mt-1.5">
+                    Castilla–La Mancha · España
+                  </span>
+                </span>
+
+                <span class="block pt-3 border-t border-hairline">
+                  <span
+                    class="flex items-center justify-between text-[10px] tracking-label uppercase font-mono"
+                  >
+                    <span class="text-ink-muted">39°51′ N · 4°01′ W</span>
+                    <span class="text-accent">UNESCO · 1986</span>
+                  </span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </span>
+      </span>
     </p>
 
     <div class="slide-up delay-3 mt-2">
