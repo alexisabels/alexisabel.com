@@ -105,17 +105,30 @@
     left: 0;
     pointer-events: none;
     z-index: 9999;
-    display: flex;
-    align-items: center;
-    gap: 10px;
     opacity: 0;
     transform: translate3d(-100px, -100px, 0);
     will-change: transform;
+    transition: opacity 160ms ease;
   }
 
   .cursor-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: none;
     line-height: 0;
+    transform-origin: 0 0;
+    transition: transform 180ms cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+
+  .cursor-shape.default {
+    transform: translate(-4px, -2px) scale(1);
+  }
+  .cursor-shape.pointer {
+    transform: translate(-10px, -2px) scale(1);
+  }
+  .cursor-shape.zoom {
+    transform: translate(-9px, -9px) scale(1);
   }
 
   .cursor-shape svg {
@@ -130,11 +143,21 @@
     display: inline-flex;
   }
 
-  #custom-cursor.is-hover .cursor-shape svg {
-    transform: scale(1.15);
+  #custom-cursor.is-hover .cursor-shape.default {
+    transform: translate(-4px, -2px) scale(1.15);
+  }
+  #custom-cursor.is-hover .cursor-shape.pointer {
+    transform: translate(-10px, -2px) scale(1.15);
+  }
+  #custom-cursor.is-hover .cursor-shape.zoom {
+    transform: translate(-9px, -9px) scale(1.15);
   }
 
   #custom-cursor-label {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
     font-family: "JetBrains Mono", monospace;
     font-size: 0.7rem;
     letter-spacing: 0.04em;
@@ -142,11 +165,13 @@
     background: rgb(var(--accent));
     padding: 4px 9px;
     white-space: nowrap;
-    display: none;
+    opacity: 0;
+    transition: opacity 140ms ease;
+    pointer-events: none;
   }
 
   #custom-cursor.has-label #custom-cursor-label {
-    display: inline-block;
+    opacity: 1;
   }
 
   @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
@@ -169,29 +194,58 @@
 
     type Shape = "default" | "pointer" | "zoom";
 
-    const OFFSETS: Record<Shape, { x: number; y: number }> = {
-      default: { x: -4, y: -2 },
-      pointer: { x: -10, y: -2 },
-      zoom: { x: -9, y: -9 },
-    };
+    // Higher = snappier. Frame-rate independent: feels the same at 60/120/240Hz.
+    // ~30 gives a subtle smoothing that removes synchronous jank without lag.
+    const SMOOTHING = 30;
+    const IDLE_THRESHOLD_SQ = 0.01;
 
+    let targetX = -100;
+    let targetY = -100;
+    let currentX = -100;
+    let currentY = -100;
+    let hasMoved = false;
     let onScreen = false;
     let dialogOpen = false;
-    let offsetX = OFFSETS.default.x;
-    let offsetY = OFFSETS.default.y;
-    let lastX = -100;
-    let lastY = -100;
+    let rafId: number | null = null;
+    let lastTime = 0;
 
     const updateVisibility = () => {
-      cursor.style.opacity = onScreen && !dialogOpen ? "1" : "0";
+      cursor.style.opacity = onScreen && !dialogOpen && hasMoved ? "1" : "0";
+    };
+
+    const writeTransform = () => {
+      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+    };
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+      const t = 1 - Math.exp(-SMOOTHING * dt);
+      currentX += (targetX - currentX) * t;
+      currentY += (targetY - currentY) * t;
+      writeTransform();
+
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
+      if (dx * dx + dy * dy < IDLE_THRESHOLD_SQ) {
+        currentX = targetX;
+        currentY = targetY;
+        writeTransform();
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const startLoop = () => {
+      if (rafId !== null) return;
+      lastTime = performance.now();
+      rafId = requestAnimationFrame(tick);
     };
 
     const setShape = (shape: Shape) => {
       cursor.classList.remove("shape-default", "shape-pointer", "shape-zoom");
       cursor.classList.add(`shape-${shape}`);
-      offsetX = OFFSETS[shape].x;
-      offsetY = OFFSETS[shape].y;
-      cursor.style.transform = `translate3d(${lastX + offsetX}px, ${lastY + offsetY}px, 0)`;
     };
 
     document.querySelectorAll("dialog").forEach((dlg) => {
@@ -202,19 +256,41 @@
       obs.observe(dlg, { attributes: true, attributeFilter: ["open"] });
     });
 
-    document.addEventListener("mousemove", (e) => {
-      lastX = e.clientX;
-      lastY = e.clientY;
-      cursor.style.transform = `translate3d(${lastX + offsetX}px, ${lastY + offsetY}px, 0)`;
-      if (!onScreen) {
-        onScreen = true;
-        updateVisibility();
-      }
-    });
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!hasMoved) {
+          hasMoved = true;
+          currentX = targetX;
+          currentY = targetY;
+          writeTransform();
+        }
+        if (!onScreen) {
+          onScreen = true;
+          updateVisibility();
+        }
+        startLoop();
+      },
+      { passive: true }
+    );
 
     document.addEventListener("mouseleave", () => {
       onScreen = false;
       updateVisibility();
+    });
+
+    window.addEventListener("blur", () => {
+      onScreen = false;
+      updateVisibility();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        onScreen = false;
+        updateVisibility();
+      }
     });
 
     const setLabel = (text: string) => {
