@@ -29,10 +29,10 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
   <Theme />
 
   <main class="w-full max-w-[1240px] mx-auto">
-    <nav class="pt-12 md:pt-20 pb-8 text-sm">
+    <nav class="pt-12 md:pt-20 pb-8">
       <a
         href="/blog"
-        class="font-mono uppercase tracking-label text-xs text-ink-muted hover:text-accent transition-colors"
+        class="text-ink-muted hover:text-accent transition-colors text-sm"
       >
         ← Blog
       </a>
@@ -40,15 +40,11 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
 
     <article class="pb-24 md:pb-32 grid grid-cols-12 gap-4 md:gap-8">
       <header class="col-span-12 md:col-span-9 flex flex-col gap-5 md:gap-6 pb-10 md:pb-14">
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-ink-muted">
           <FormattedDate date={pubDate} />
-          {readingTime && (
-            <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
-              · {readingTime}
-            </span>
-          )}
+          {readingTime && <span>· {readingTime}</span>}
           {updatedDate && (
-            <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+            <span>
               · actualizado <FormattedDate date={updatedDate} />
             </span>
           )}
@@ -67,7 +63,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
         {tags.length > 0 && (
           <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
             {tags.map((tag) => (
-              <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+              <span class="text-ink-muted text-sm">
                 #{tag}
               </span>
             ))}
@@ -101,9 +97,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
               href={`/blog/${prev.slug}`}
               class="group flex flex-col gap-2 no-underline"
             >
-              <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
-                ← Anterior
-              </span>
+              <span class="text-ink-muted text-sm">← Anterior</span>
               <span class="font-display text-ink text-lg md:text-xl tracking-tight2 group-hover:text-accent transition-colors">
                 {prev.title}
               </span>
@@ -116,9 +110,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
               href={`/blog/${next.slug}`}
               class="group flex flex-col gap-2 md:items-end no-underline"
             >
-              <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
-                Siguiente →
-              </span>
+              <span class="text-ink-muted text-sm">Siguiente →</span>
               <span class="font-display text-ink text-lg md:text-xl tracking-tight2 group-hover:text-accent transition-colors">
                 {next.title}
               </span>
@@ -134,7 +126,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
       <span>© {new Date().getFullYear()} Alejandro Isabel</span>
       <a
         href="/"
-        class="font-mono uppercase tracking-label text-xs hover:text-accent transition-colors"
+        class="hover:text-accent transition-colors"
       >
         ← Volver al inicio
       </a>
@@ -279,13 +271,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
     margin: 1.6em 0;
   }
   .prose-blog figcaption {
-    font-family:
-      "JetBrains Mono",
-      ui-monospace,
-      monospace;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
+    font-size: 0.875rem;
     color: rgb(var(--ink-muted));
     text-align: center;
     margin-top: 0.6rem;
@@ -302,14 +288,7 @@ const url = new URL(Astro.url.pathname, Astro.site).toString();
     text-align: left;
   }
   .prose-blog th {
-    font-family:
-      "JetBrains Mono",
-      ui-monospace,
-      monospace;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: rgb(var(--ink-muted));
-    font-weight: 500;
+    color: rgb(var(--ink));
+    font-weight: 600;
   }
 </style>
