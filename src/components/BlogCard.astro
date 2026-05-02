@@ -1,0 +1,47 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  readingTime?: string;
+  tags?: string[];
+}
+
+const { href, title, description, pubDate, readingTime, tags = [] } = Astro.props;
+---
+
+<a
+  href={href}
+  data-cursor-label="Leer"
+  class="blog-row group grid grid-cols-12 gap-4 md:gap-8 py-6 md:py-8 border-b border-hairline transition-colors duration-200 hover:bg-paper-raised/50 no-underline"
+>
+  <div class="col-span-12 md:col-span-3 flex md:flex-col gap-3 md:gap-2 md:pt-2">
+    <FormattedDate date={pubDate} />
+    {readingTime && (
+      <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+        · {readingTime}
+      </span>
+    )}
+  </div>
+
+  <div class="col-span-12 md:col-span-9 flex flex-col gap-3 md:gap-4">
+    <h3 class="font-display font-semibold text-ink tracking-tight2 leading-[1] text-[clamp(1.5rem,3.5vw,2.25rem)] group-hover:text-accent transition-colors">
+      {title}
+    </h3>
+    <p class="text-ink-muted text-sm md:text-base leading-[1.55] max-w-2xl">
+      {description}
+    </p>
+    {tags.length > 0 && (
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        {tags.map((tag) => (
+          <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+            #{tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+</a>

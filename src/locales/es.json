@@ -1,3 +1,15 @@
 {
-    "404.TITLE": "Página no encontrada"
+    "404.TITLE": "Página no encontrada",
+    "BLOG.TITLE": "Blog",
+    "BLOG.DESCRIPTION": "Notas sobre lo que voy aprendiendo mientras desarrollo. Sin cadencia fija, publicación cuando hay algo que merezca la pena contar.",
+    "BLOG.VIEW_ALL": "Ver todo",
+    "BLOG.SUBSCRIBE": "o suscríbete vía",
+    "BLOG.READING_TIME": "min de lectura",
+    "BLOG.PUBLISHED": "Publicado",
+    "BLOG.UPDATED": "Actualizado",
+    "BLOG.PREV": "Anterior",
+    "BLOG.NEXT": "Siguiente",
+    "BLOG.BACK": "Inicio",
+    "BLOG.BACK_TO_BLOG": "Blog",
+    "BLOG.NO_POSTS": "Aún no hay posts publicados."
 }

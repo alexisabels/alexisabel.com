@@ -3,25 +3,43 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Cursor from "../components/Cursor.astro";
 interface Props {
   title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  canonical?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Alejandro Isabel — Desarrollador de software en Toledo. Java, Spring y React.",
+  ogImage,
+  ogType = "website",
+  canonical,
+} = Astro.props;
+
+const resolvedCanonical =
+  canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+const resolvedOg = ogImage ?? new URL("/nueva.png", Astro.site).toString();
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Alejandro Isabel — Desarrollador de software en Toledo. Java, Spring y React."
-    />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
+    <link rel="canonical" href={resolvedCanonical} />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Blog — Alejandro Isabel"
+      href="/rss.xml"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,14 +47,25 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <meta name="generator" content={Astro.generator} />
-    <script src="/node_modules/flowbite/dist/flowbite.js" is:client></script>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={resolvedCanonical} />
+    <meta property="og:image" content={resolvedOg} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOg} />
     <title>{title}</title>
+    <script>
+      import "flowbite";
+    </script>
   </head>
   <body>
     <Cursor />
     <slot />
+    <SpeedInsights />
   </body>
-  <SpeedInsights />
 </html>
 <style is:global>
   :root {

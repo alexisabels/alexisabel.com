@@ -1,0 +1,315 @@
+---
+import Layout from "./Layout.astro";
+import Theme from "../components/Theme.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"blog">;
+  readingTime?: string;
+  prev?: { slug: string; title: string } | null;
+  next?: { slug: string; title: string } | null;
+}
+
+const { entry, readingTime, prev, next } = Astro.props;
+const { title, description, pubDate, updatedDate, cover, coverAlt, tags } = entry.data;
+
+const ogImage = cover ? new URL(cover.src, Astro.site).toString() : undefined;
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<Layout
+  title={`${title} — Alejandro Isabel`}
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+  canonical={url}
+>
+  <Theme />
+
+  <main class="w-full max-w-[1240px] mx-auto">
+    <nav class="pt-12 md:pt-20 pb-8 text-sm">
+      <a
+        href="/blog"
+        class="font-mono uppercase tracking-label text-xs text-ink-muted hover:text-accent transition-colors"
+      >
+        ← Blog
+      </a>
+    </nav>
+
+    <article class="pb-24 md:pb-32 grid grid-cols-12 gap-4 md:gap-8">
+      <header class="col-span-12 md:col-span-9 flex flex-col gap-5 md:gap-6 pb-10 md:pb-14">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <FormattedDate date={pubDate} />
+          {readingTime && (
+            <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+              · {readingTime}
+            </span>
+          )}
+          {updatedDate && (
+            <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+              · actualizado <FormattedDate date={updatedDate} />
+            </span>
+          )}
+        </div>
+
+        <h1
+          class="font-display font-semibold text-ink tracking-tight2 leading-[0.95] text-[clamp(2.25rem,6vw,4.5rem)]"
+        >
+          {title}
+        </h1>
+
+        <p class="text-[clamp(1.05rem,1.6vw,1.35rem)] leading-[1.5] text-ink-muted max-w-2xl">
+          {description}
+        </p>
+
+        {tags.length > 0 && (
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
+            {tags.map((tag) => (
+              <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {cover && (
+        <figure class="col-span-12 mb-10 md:mb-14">
+          <Image
+            src={cover}
+            alt={coverAlt ?? title}
+            widths={[640, 960, 1240, 1860]}
+            sizes="(min-width: 1280px) 1240px, 100vw"
+            class="w-full aspect-[16/10] object-cover border border-hairline"
+            loading="eager"
+          />
+        </figure>
+      )}
+
+      <div class="col-span-12 md:col-span-9 md:col-start-3 prose-blog">
+        <slot />
+      </div>
+    </article>
+
+    {(prev || next) && (
+      <nav class="grid grid-cols-12 gap-4 md:gap-8 border-t border-hairline py-10 md:py-14">
+        <div class="col-span-12 md:col-span-6">
+          {prev && (
+            <a
+              href={`/blog/${prev.slug}`}
+              class="group flex flex-col gap-2 no-underline"
+            >
+              <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+                ← Anterior
+              </span>
+              <span class="font-display text-ink text-lg md:text-xl tracking-tight2 group-hover:text-accent transition-colors">
+                {prev.title}
+              </span>
+            </a>
+          )}
+        </div>
+        <div class="col-span-12 md:col-span-6 md:text-right">
+          {next && (
+            <a
+              href={`/blog/${next.slug}`}
+              class="group flex flex-col gap-2 md:items-end no-underline"
+            >
+              <span class="font-mono text-xs uppercase tracking-label text-ink-muted">
+                Siguiente →
+              </span>
+              <span class="font-display text-ink text-lg md:text-xl tracking-tight2 group-hover:text-accent transition-colors">
+                {next.title}
+              </span>
+            </a>
+          )}
+        </div>
+      </nav>
+    )}
+
+    <footer
+      class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-hairline py-8 md:py-10 text-sm text-ink-muted"
+    >
+      <span>© {new Date().getFullYear()} Alejandro Isabel</span>
+      <a
+        href="/"
+        class="font-mono uppercase tracking-label text-xs hover:text-accent transition-colors"
+      >
+        ← Volver al inicio
+      </a>
+    </footer>
+  </main>
+</Layout>
+
+<style is:global>
+  .prose-blog {
+    color: rgb(var(--ink));
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-blog > * + * {
+    margin-top: 1.4em;
+  }
+  .prose-blog h2,
+  .prose-blog h3,
+  .prose-blog h4 {
+    font-family:
+      "Bricolage Grotesque",
+      ui-sans-serif,
+      system-ui,
+      sans-serif;
+    font-weight: 600;
+    color: rgb(var(--ink));
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+  .prose-blog h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-top: 2.4em;
+    margin-bottom: 0.6em;
+    padding-top: 0.4em;
+    border-top: 1px solid rgb(var(--ink) / 0.12);
+  }
+  .prose-blog h3 {
+    font-size: clamp(1.35rem, 2.2vw, 1.6rem);
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+  }
+  .prose-blog h4 {
+    font-size: 1.15rem;
+    margin-top: 1.6em;
+    margin-bottom: 0.4em;
+  }
+  .prose-blog p {
+    color: rgb(var(--ink));
+  }
+  .prose-blog a {
+    color: rgb(var(--ink));
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--ink) / 0.2);
+    text-underline-offset: 4px;
+    transition: color 200ms ease, text-decoration-color 200ms ease;
+  }
+  .prose-blog a:hover {
+    color: rgb(var(--accent));
+    text-decoration-color: rgb(var(--accent));
+  }
+  .prose-blog strong {
+    color: rgb(var(--ink));
+    font-weight: 600;
+  }
+  .prose-blog em {
+    font-style: italic;
+  }
+  .prose-blog code {
+    font-family:
+      "JetBrains Mono",
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Consolas,
+      monospace;
+    font-size: 0.9em;
+    padding: 0.15em 0.4em;
+    background: rgb(var(--paper-raised));
+    border: 1px solid rgb(var(--ink) / 0.08);
+  }
+  .prose-blog pre {
+    font-family:
+      "JetBrains Mono",
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Consolas,
+      monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid rgb(var(--ink) / 0.12);
+    overflow-x: auto;
+    background: rgb(var(--paper-raised)) !important;
+  }
+  .prose-blog pre code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+  }
+  html.dark .prose-blog pre,
+  html.dark .prose-blog pre code,
+  html.dark .prose-blog pre span {
+    color: var(--shiki-dark) !important;
+    background: var(--shiki-dark-bg, rgb(var(--paper-raised))) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+  .prose-blog ul,
+  .prose-blog ol {
+    padding-left: 1.5rem;
+  }
+  .prose-blog ul {
+    list-style: disc;
+  }
+  .prose-blog ol {
+    list-style: decimal;
+  }
+  .prose-blog li {
+    margin-top: 0.4em;
+  }
+  .prose-blog li::marker {
+    color: rgb(var(--accent));
+  }
+  .prose-blog blockquote {
+    border-left: 2px solid rgb(var(--accent));
+    padding: 0.25em 0 0.25em 1.25rem;
+    color: rgb(var(--ink-muted));
+    font-style: italic;
+  }
+  .prose-blog hr {
+    border: 0;
+    border-top: 1px solid rgb(var(--ink) / 0.12);
+    margin: 2.4em 0;
+  }
+  .prose-blog img {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgb(var(--ink) / 0.12);
+    margin: 1.6em 0;
+  }
+  .prose-blog figcaption {
+    font-family:
+      "JetBrains Mono",
+      ui-monospace,
+      monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgb(var(--ink-muted));
+    text-align: center;
+    margin-top: 0.6rem;
+  }
+  .prose-blog table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .prose-blog th,
+  .prose-blog td {
+    border-bottom: 1px solid rgb(var(--ink) / 0.12);
+    padding: 0.6em 0.8em;
+    text-align: left;
+  }
+  .prose-blog th {
+    font-family:
+      "JetBrains Mono",
+      ui-monospace,
+      monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgb(var(--ink-muted));
+    font-weight: 500;
+  }
+</style>

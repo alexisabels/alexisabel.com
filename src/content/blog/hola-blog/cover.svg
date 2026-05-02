@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="Trazos en papel">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.18 0"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="#f7f5f0"/>
+  <g stroke="#0e0e0e" stroke-width="1" fill="none" opacity="0.9">
+    <line x1="80" y1="160" x2="1120" y2="160" stroke-opacity="0.2"/>
+    <line x1="80" y1="220" x2="900" y2="220" stroke-opacity="0.2"/>
+    <line x1="80" y1="280" x2="1050" y2="280" stroke-opacity="0.2"/>
+    <line x1="80" y1="340" x2="780" y2="340" stroke-opacity="0.2"/>
+    <line x1="80" y1="400" x2="980" y2="400" stroke-opacity="0.2"/>
+  </g>
+  <g transform="translate(820,180) rotate(-6)">
+    <text x="0" y="0" font-family="Bricolage Grotesque, ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="220" letter-spacing="-10" fill="#0e0e0e">hola.</text>
+    <rect x="-10" y="-180" width="40" height="40" fill="#0f7850"/>
+  </g>
+  <g stroke="#0f7850" stroke-width="3" fill="none">
+    <path d="M120 560 Q 280 500 440 560 T 760 560 T 1080 540" stroke-opacity="0.85"/>
+    <path d="M120 600 Q 320 660 520 600 T 880 600 T 1080 620" stroke-opacity="0.45" stroke-dasharray="6 8"/>
+  </g>
+  <rect width="1200" height="750" filter="url(#grain)" opacity="0.55"/>
+</svg>

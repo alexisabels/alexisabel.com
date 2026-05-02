@@ -1,0 +1,39 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import readingTime from "reading-time";
+import BlogPost from "../../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  );
+
+  return posts.map((entry, index) => {
+    const next = index > 0 ? posts[index - 1] : null;
+    const prev = index < posts.length - 1 ? posts[index + 1] : null;
+    return {
+      params: { slug: entry.slug },
+      props: {
+        entry,
+        prev: prev ? { slug: prev.slug, title: prev.data.title } : null,
+        next: next ? { slug: next.slug, title: next.data.title } : null,
+      },
+    };
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<"blog">;
+  prev: { slug: string; title: string } | null;
+  next: { slug: string; title: string } | null;
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await entry.render();
+const stats = readingTime(entry.body);
+const readingTimeText = stats.text.replace("min read", "min de lectura");
+---
+
+<BlogPost entry={entry} readingTime={readingTimeText} prev={prev} next={next}>
+  <Content />
+</BlogPost>

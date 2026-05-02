@@ -1,4 +1,15 @@
 {
-    "404.TITLE": "Page Not Found"
-  }
-  
+    "404.TITLE": "Page Not Found",
+    "BLOG.TITLE": "Blog",
+    "BLOG.DESCRIPTION": "Notes on what I'm learning while building. No fixed cadence, posts when there's something worth saying.",
+    "BLOG.VIEW_ALL": "See all",
+    "BLOG.SUBSCRIBE": "or subscribe via",
+    "BLOG.READING_TIME": "min read",
+    "BLOG.PUBLISHED": "Published",
+    "BLOG.UPDATED": "Updated",
+    "BLOG.PREV": "Previous",
+    "BLOG.NEXT": "Next",
+    "BLOG.BACK": "Home",
+    "BLOG.BACK_TO_BLOG": "Blog",
+    "BLOG.NO_POSTS": "No posts yet."
+}

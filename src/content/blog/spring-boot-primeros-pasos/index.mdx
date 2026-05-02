@@ -1,0 +1,69 @@
+---
+title: "Spring Boot: lo que me hubiera gustado saber al empezar"
+description: "Notas tras varios meses con Spring. Lo que vale la pena entender antes de tocar un controller."
+pubDate: 2026-04-20
+cover: ./cover.svg
+coverAlt: "Diagrama abstracto de capas en tonos verdes"
+tags: ["java", "spring", "backend"]
+---
+
+Cuando arrancas con Spring Boot la sensación es de que todo «funciona por arte de magia». Pones unas anotaciones y aparecen endpoints, conexiones a base de datos, validaciones. Está bien para empezar, pero a las dos semanas necesitas saber qué hace cada pieza.
+
+## El contenedor de IoC, sin romanticismos
+
+Spring no es más que **un contenedor que crea objetos por ti** y te los pasa cuando los pides. `@Component`, `@Service`, `@Repository`, `@Controller` son la misma cosa con nombre distinto: registras una clase para que Spring sepa instanciarla.
+
+```java
+@Service
+public class FacturaService {
+    private final FacturaRepository repo;
+
+    public FacturaService(FacturaRepository repo) {
+        this.repo = repo;
+    }
+}
+```
+
+Eso es **inyección por constructor** y es lo que deberías usar siempre. Olvídate de `@Autowired` en campos: hace los tests más difíciles y oculta dependencias.
+
+## Capas
+
+Hay un patrón que se repite y conviene respetarlo:
+
+- **Controller** — habla HTTP. Recibe la request, valida, devuelve la response. Nada más.
+- **Service** — la lógica de negocio. No sabe que existe HTTP.
+- **Repository** — habla con la base de datos. No sabe nada del negocio.
+
+Si tu controller tiene un `if` con reglas de negocio, está mal. Si tu repository hace cálculos, también.
+
+## DTOs vs entidades
+
+No devuelvas entidades JPA por la API. Nunca. En el momento que lo hagas:
+
+1. Estás exponiendo tu modelo de datos al mundo.
+2. Cualquier cambio en la BD rompe el contrato de la API.
+3. Te arriesgas a serializar relaciones lazy y pegarte una hostia.
+
+Crea DTOs (records van perfectos) y mapea explícitamente.
+
+```java
+public record FacturaDTO(Long id, String numero, BigDecimal total) {
+    public static FacturaDTO from(Factura f) {
+        return new FacturaDTO(f.getId(), f.getNumero(), f.getTotal());
+    }
+}
+```
+
+## Lo que te va a doler
+
+- **N+1 queries.** Activa `spring.jpa.show-sql=true` en local y mira lo que ejecuta. Te vas a sorprender.
+- **Transacciones.** `@Transactional` solo funciona si la llamada entra desde fuera de la clase. Si lo llamas desde otro método de la misma clase, no se aplica.
+- **Validación.** `@Valid` en el controller + bean validation en el DTO. No metas validaciones a mano.
+
+## Recursos que sí valen
+
+- La documentación oficial. Aburrida pero exacta.
+- El libro «Spring in Action» de Craig Walls.
+- Mirar el código de proyectos open source en GitHub que usen Spring 3+.
+
+Más adelante escribo sobre testing en Spring, que es donde realmente se ve si has separado bien las capas.

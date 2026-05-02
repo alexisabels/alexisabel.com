@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+import readingTime from "reading-time";
 import Layout from "../layouts/Layout.astro";
 import Theme from "../components/Theme.astro";
 import Presentation from "../components/Presentation.astro";
@@ -7,6 +9,7 @@ import Skills from "../components/Skills.astro";
 import Experience from "../components/Experience.astro";
 import About from "../components/About.astro";
 import Projects from "../components/Projects.astro";
+import BlogCard from "../components/BlogCard.astro";
 
 const links = [
   { href: "https://github.com/alexisabels", icon: "GithubIcon", alt: "GitHub" },
@@ -18,6 +21,15 @@ const links = [
   { href: "mailto:isabelsanchezalex@gmail.com", icon: "MailIcon", alt: "Email" },
   { href: "/AlejandroIsabelCV.pdf", icon: "CVIcon", alt: "CV" },
 ];
+
+const latestPosts = (
+  await getCollection("blog", ({ data }) => !data.draft)
+)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+const readingTimeFor = (body: string) =>
+  readingTime(body).text.replace("min read", "min de lectura");
 
 const YEAR = new Date().getFullYear();
 ---
@@ -53,11 +65,65 @@ const YEAR = new Date().getFullYear();
       <Projects />
     </section>
 
+    {
+      latestPosts.length > 0 && (
+        <section class="in-view pb-24 md:pb-32">
+          <SectionHeading title="Blog" />
+          <ol class="flex flex-col border-t border-hairline">
+            {latestPosts.map((post) => (
+              <li>
+                <BlogCard
+                  href={`/blog/${post.slug}`}
+                  title={post.data.title}
+                  description={post.data.description}
+                  pubDate={post.data.pubDate}
+                  readingTime={readingTimeFor(post.body)}
+                  tags={post.data.tags}
+                />
+              </li>
+            ))}
+          </ol>
+          <div class="mt-8 flex items-center gap-4 flex-wrap">
+            <a
+              href="/blog"
+              class="inline-flex items-center gap-3 text-ink hover:text-accent transition-colors text-base font-medium"
+            >
+              <span>Ver todo</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <span class="text-ink-muted text-sm">
+              o suscríbete vía
+              <a
+                href="/rss.xml"
+                class="text-ink hover:text-accent underline decoration-hairline underline-offset-4 hover:decoration-accent transition-colors"
+              >
+                RSS
+              </a>
+            </span>
+          </div>
+        </section>
+      )
+    }
+
     <footer
       class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-hairline py-8 md:py-10 text-sm text-ink-muted"
     >
       <span>© {YEAR} Alejandro Isabel</span>
-      <span>Toledo, España</span>
+      <div class="flex items-center gap-5">
+        <a
+          href="/blog"
+          class="font-mono uppercase tracking-label text-xs hover:text-accent transition-colors"
+        >
+          Blog
+        </a>
+        <a
+          href="/rss.xml"
+          class="font-mono uppercase tracking-label text-xs hover:text-accent transition-colors"
+        >
+          RSS
+        </a>
+        <span>Toledo, España</span>
+      </div>
     </footer>
   </main>
 </Layout>

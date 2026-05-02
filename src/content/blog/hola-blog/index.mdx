@@ -1,0 +1,39 @@
+---
+title: "Hola, blog"
+description: "Por qué arranco un blog y de qué pienso escribir aquí."
+pubDate: 2026-05-02
+cover: ./cover.svg
+coverAlt: "Trazos en papel sobre fondo color crema"
+tags: ["meta", "writing"]
+---
+
+Llevaba tiempo dándole vueltas a montar un sitio donde dejar por escrito lo que voy aprendiendo. No para enseñar, sino para **pensar despacio**: cuando intentas explicar algo, te das cuenta de lo que no entiendes.
+
+## De qué va a ir esto
+
+Cosas que toco en el día a día — Java, Spring, React, Next.js, Supabase — y notas más amplias sobre desarrollar software con cabeza. No prometo cadencia: prefiero publicar poco y bien.
+
+## Cómo está hecho
+
+Este blog vive dentro de mi portfolio, en [Astro](https://astro.build). Cada post es un archivo `.mdx` en el repo. Cuando hago `git push`, Vercel lo despliega solo.
+
+```ts
+// src/content/config.ts
+const blog = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      pubDate: z.coerce.date(),
+      cover: image().optional(),
+    }),
+});
+```
+
+Sin CMS, sin base de datos, sin admin. Markdown y ya.
+
+## Qué viene
+
+Tengo notas sobre Spring Boot, sobre por qué Supabase me ha cambiado la forma de prototipar, y sobre el lío que es montar un sistema de cumplimiento normativo desde cero. Iré soltándolas.
+
+Gracias por pasarte.
