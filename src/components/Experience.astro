@@ -25,6 +25,7 @@ const JOBS = [
     hrefLabel: "delogica.com",
     logo: "https://delogica.com/wp-content/uploads/2023/07/logo-delogica-header.png",
     logoAlt: "Logo Delógica",
+    lightShadow: true,
   },
   {
     company: "Externa Ingenieros Consultores",
@@ -63,7 +64,10 @@ const JOBS = [
               src={job.logo}
               alt={job.logoAlt}
               loading="lazy"
-              class="max-h-full max-w-full object-contain object-left opacity-85 block dark:hidden"
+              class:list={[
+                "max-h-full max-w-full object-contain object-left opacity-85 block dark:hidden",
+                job.lightShadow && "logo-light-outline",
+              ]}
             />
             <img
               src={job.logoDark || job.logo}
@@ -104,3 +108,11 @@ const JOBS = [
     ))
   }
 </ol>
+
+<style>
+  .logo-light-outline {
+    filter:
+      drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.55))
+      drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.35));
+  }
+</style>
