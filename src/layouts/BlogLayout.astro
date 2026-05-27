@@ -1,0 +1,57 @@
+---
+import Layout from "./Layout.astro";
+import Theme from "../components/Theme.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+const isBlogIndex = pathname === "/blog" || pathname === "";
+---
+
+<Layout title={title} description={description} image={image}>
+  <Theme />
+  <main class="w-full max-w-[1240px] mx-auto pt-16 md:pt-20">
+    <nav class="mb-12 md:mb-16 flex items-center justify-between">
+      {
+        isBlogIndex ? (
+          <a
+            href="/"
+            class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-label text-ink-muted hover:text-accent transition-colors"
+          >
+            <span aria-hidden="true">←</span>
+            <span>Inicio</span>
+          </a>
+        ) : (
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-label text-ink-muted hover:text-accent transition-colors"
+          >
+            <span aria-hidden="true">←</span>
+            <span>Blog</span>
+          </a>
+        )
+      }
+      <a
+        href="/blog/rss.xml"
+        class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-label text-ink-muted hover:text-accent transition-colors"
+        aria-label="Suscríbete vía RSS"
+      >
+        <span>RSS</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </nav>
+    <slot />
+    <footer
+      class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-hairline mt-24 md:mt-32 py-8 md:py-10 text-sm text-ink-muted"
+    >
+      <span>© {new Date().getFullYear()} Alejandro Isabel</span>
+      <a href="/" class="hover:text-accent transition-colors">alexisabel.com</a>
+    </footer>
+  </main>
+</Layout>
