@@ -1,0 +1,175 @@
+---
+import "katex/dist/katex.min.css";
+import BlogLayout from "./BlogLayout.astro";
+import PostMeta from "../components/blog/PostMeta.astro";
+import TagPill from "../components/blog/TagPill.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updated?: Date;
+  cover?: string;
+  coverAlt?: string;
+  tags?: string[];
+  readingTime?: string;
+  draft?: boolean;
+  slug: string;
+}
+
+const {
+  title,
+  description,
+  date,
+  updated,
+  cover,
+  coverAlt,
+  tags = [],
+  readingTime,
+  draft,
+  slug,
+} = Astro.props;
+
+const ogImage = cover ?? "/nueva.png";
+const canonical = new URL(`/blog/${slug}`, Astro.site).toString();
+---
+
+<BlogLayout title={`${title} · Alejandro Isabel`} description={description} image={ogImage}>
+  <article class="max-w-3xl mx-auto">
+    <header class="mb-12 md:mb-16">
+      {
+        draft && (
+          <div class="mb-6 inline-block text-xs font-mono uppercase tracking-label text-accent border border-accent/40 px-2 py-0.5">
+            Borrador — no indexado
+          </div>
+        )
+      }
+      <div class="flex items-start gap-3 md:gap-4 mb-6">
+        <span
+          class="inline-block size-3 md:size-3.5 bg-accent shrink-0 translate-y-[0.5em] md:translate-y-[0.65em]"
+          aria-hidden="true"></span>
+        <h1
+          class="font-display text-ink font-bold tracking-tight2 leading-[0.98] text-[clamp(2rem,4.5vw,3.5rem)]"
+        >
+          {title}
+        </h1>
+      </div>
+      <p class="text-lg md:text-xl text-ink-muted leading-relaxed mb-6">
+        {description}
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <PostMeta date={date} updated={updated} readingTime={readingTime} />
+        {
+          tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {tags.map((t) => (
+                <TagPill tag={t} />
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      cover && (
+        <figure class="mb-12 md:mb-16 -mx-5 md:mx-0">
+          <img
+            src={cover}
+            alt={coverAlt ?? ""}
+            class="w-full aspect-[21/9] object-cover border-y md:border border-hairline"
+            loading="eager"
+            decoding="async"
+          />
+          {coverAlt && (
+            <figcaption class="text-sm text-ink-muted text-center mt-3 px-5 md:px-0">
+              {coverAlt}
+            </figcaption>
+          )}
+        </figure>
+      )
+    }
+
+    <div class="prose prose-pre:overflow-x-auto">
+      <slot />
+    </div>
+  </article>
+
+  <script>
+    // Render Mermaid diagrams on demand (loaded only if a diagram is present)
+    const render = async () => {
+      const mermaidNodes = document.querySelectorAll<HTMLElement>("pre.mermaid");
+      if (mermaidNodes.length === 0) return;
+      try {
+        const mermaidMod = await import("mermaid");
+        const mermaid = mermaidMod.default;
+        const isDark = document.documentElement.classList.contains("dark");
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: isDark ? "dark" : "neutral",
+          securityLevel: "loose",
+          fontFamily: "JetBrains Mono, ui-monospace, monospace",
+        });
+        await mermaid.run({ querySelector: "pre.mermaid" });
+      } catch (err) {
+        console.error("[mermaid] render failed:", err);
+      }
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", render);
+    } else {
+      render();
+    }
+  </script>
+
+  <style is:global>
+    /* Dual-theme Shiki: swap to dark variant when html.dark */
+    html.dark .astro-code,
+    html.dark .astro-code span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+    /* Mermaid svg fits container */
+    .mermaid {
+      display: flex;
+      justify-content: center;
+      background: transparent !important;
+      padding: 1.5rem 0;
+      border: none;
+    }
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+    /* KaTeX overflow on small screens */
+    .katex-display {
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.25rem 0;
+    }
+  </style>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      description,
+      datePublished: date.toISOString(),
+      dateModified: (updated ?? date).toISOString(),
+      author: {
+        "@type": "Person",
+        name: "Alejandro Isabel",
+        url: "https://alexisabel.com",
+      },
+      image: new URL(ogImage, "https://alexisabel.com").toString(),
+      mainEntityOfPage: canonical,
+      keywords: tags.join(", "),
+    })}
+  />
+</BlogLayout>

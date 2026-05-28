@@ -1,0 +1,43 @@
+---
+interface Props {
+  date: Date;
+  updated?: Date;
+  readingTime?: string;
+  class?: string;
+}
+
+const { date, updated, readingTime, class: className = "" } = Astro.props;
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(d);
+
+const iso = (d: Date) => d.toISOString();
+---
+
+<div
+  class={`flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-muted font-mono tabular ${className}`}
+>
+  <time datetime={iso(date)}>{fmt(date)}</time>
+  {
+    updated && updated.getTime() !== date.getTime() && (
+      <>
+        <span aria-hidden="true" class="opacity-40">·</span>
+        <span title={`Actualizado: ${fmt(updated)}`}>
+          act. {fmt(updated)}
+        </span>
+      </>
+    )
+  }
+  {
+    readingTime && (
+      <>
+        <span aria-hidden="true" class="opacity-40">·</span>
+        <span>{readingTime}</span>
+      </>
+    )
+  }
+</div>

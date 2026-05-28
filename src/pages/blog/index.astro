@@ -1,0 +1,84 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import PostCard from "../../components/blog/PostCard.astro";
+
+export const prerender = true;
+
+type Post = CollectionEntry<"blog">;
+
+const all = await getCollection("blog", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true
+);
+
+const posts = all.sort(
+  (a: Post, b: Post) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const allTags: string[] = Array.from(
+  new Set<string>(posts.flatMap((p: Post) => p.data.tags as string[]))
+).sort();
+---
+
+<BlogLayout
+  title="Blog · Alejandro Isabel"
+  description="Notas sobre desarrollo de software, agentes IA y herramientas que me hacen mejor ingeniero."
+>
+  <header class="mb-16 md:mb-24">
+    <div class="flex items-center gap-3 md:gap-4 mb-6">
+      <span
+        class="inline-block size-3 md:size-3.5 bg-accent shrink-0 translate-y-[0.55em] md:translate-y-[0.75em]"
+        aria-hidden="true"></span>
+      <h1
+        class="font-display text-ink font-bold tracking-tight2 leading-[0.95] text-[clamp(2.5rem,7vw,5.5rem)]"
+      >
+        Blog
+      </h1>
+    </div>
+    <p class="text-lg md:text-xl text-ink-muted leading-relaxed max-w-2xl">
+      Notas sobre desarrollo de software, agentes de IA y herramientas que me
+      hacen mejor ingeniero.
+    </p>
+    {
+      allTags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-8">
+          {allTags.map((t) => (
+            <a
+              href={`/blog/tags/${encodeURIComponent(t)}`}
+              class="inline-flex items-center px-2.5 py-1 text-xs font-mono uppercase tracking-label border border-hairline text-ink-muted hover:text-ink hover:border-ink/40 transition-colors"
+            >
+              {t}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </header>
+
+  {
+    posts.length === 0 ? (
+      <div class="border border-hairline p-8 md:p-12 text-center text-ink-muted">
+        <p class="font-mono text-sm uppercase tracking-label mb-2">
+          Aún no hay posts
+        </p>
+        <p>Pronto habrá algo aquí.</p>
+      </div>
+    ) : (
+      <div>
+        {posts.map((post: Post) => (
+          <PostCard
+            href={`/blog/${post.slug}`}
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            updated={post.data.updated}
+            tags={post.data.tags}
+            cover={post.data.cover}
+            coverAlt={post.data.coverAlt}
+            draft={post.data.draft}
+          />
+        ))}
+      </div>
+    )
+  }
+</BlogLayout>

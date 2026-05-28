@@ -1,0 +1,44 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import readingTime from "reading-time";
+import PostLayout from "../../layouts/PostLayout.astro";
+
+export const prerender = true;
+
+type Post = CollectionEntry<"blog">;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true
+  );
+  return posts.map((post: Post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const rt = readingTime(post.body);
+const rtLabel = `${Math.max(1, Math.round(rt.minutes))} min de lectura`;
+---
+
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  updated={post.data.updated}
+  cover={post.data.cover}
+  coverAlt={post.data.coverAlt}
+  tags={post.data.tags}
+  readingTime={rtLabel}
+  draft={post.data.draft}
+  slug={post.slug}
+>
+  <Content />
+</PostLayout>

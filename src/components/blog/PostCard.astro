@@ -1,0 +1,77 @@
+---
+import PostMeta from "./PostMeta.astro";
+import TagPill from "./TagPill.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  date: Date;
+  updated?: Date;
+  tags?: string[];
+  cover?: string;
+  coverAlt?: string;
+  draft?: boolean;
+}
+
+const {
+  href,
+  title,
+  description,
+  date,
+  updated,
+  tags = [],
+  cover,
+  coverAlt,
+  draft,
+} = Astro.props;
+---
+
+<article class="group border-t border-hairline py-8 md:py-10 first:border-t-0">
+  <a href={href} class="block">
+    <div class="flex flex-col md:flex-row gap-6 md:gap-10">
+      {
+        cover && (
+          <div class="md:w-64 md:shrink-0 aspect-[16/10] md:aspect-[4/3] overflow-hidden border border-hairline bg-paper-raised">
+            <img
+              src={cover}
+              alt={coverAlt ?? ""}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+        )
+      }
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-3">
+          <PostMeta date={date} updated={updated} />
+          {
+            draft && (
+              <span class="text-xs font-mono uppercase tracking-label text-accent border border-accent/40 px-2 py-0.5">
+                Borrador
+              </span>
+            )
+          }
+        </div>
+        <h3
+          class="font-display text-ink font-semibold tracking-tight2 leading-tight text-2xl md:text-3xl mb-3 group-hover:text-accent transition-colors"
+        >
+          {title}
+        </h3>
+        <p class="text-ink-muted text-base leading-relaxed mb-4 line-clamp-3">
+          {description}
+        </p>
+      </div>
+    </div>
+  </a>
+  {
+    tags.length > 0 && (
+      <div class={`flex flex-wrap gap-2 mt-3 ${cover ? "md:ml-[19rem]" : ""}`}>
+        {tags.map((t) => (
+          <TagPill tag={t} />
+        ))}
+      </div>
+    )
+  }
+</article>
