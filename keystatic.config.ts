@@ -6,9 +6,12 @@ import { config, fields, collection } from "@keystatic/core";
 //                login con GitHub via GitHub App. Necesita:
 //                  storage: { kind: 'github', repo: 'alexisabels/alexisabel.com' }
 //                  + crear un GitHub App: https://keystatic.com/docs/github-mode
-//                  + setear KEYSTATIC_ENABLED=true en Vercel
+//                  + setear KEYSTATIC_ENABLED=true y
+//                    PUBLIC_KEYSTATIC_STORAGE_KIND=github en Vercel
+// Nota: este archivo se ejecuta también en el navegador (admin UI de Keystatic),
+// así que la variable de modo debe llevar prefijo PUBLIC_ y leerse vía import.meta.env.
 const storage =
-  process.env.KEYSTATIC_STORAGE_KIND === "github"
+  import.meta.env.PUBLIC_KEYSTATIC_STORAGE_KIND === "github"
     ? ({
         kind: "github",
         repo: "alexisabels/alexisabel.com",

@@ -13,6 +13,28 @@ import remarkMermaid from "./src/lib/remark-mermaid.mjs";
 const isDev = process.env.NODE_ENV !== "production";
 const enableKeystaticInProd = process.env.KEYSTATIC_ENABLED === "true";
 
+// La inyección de la API de @keystatic/astro no resuelve bien en este proyecto
+// (devuelve 404 en /api/keystatic/*). Envolvemos la integración para saltarnos
+// esa inyección y servir la API desde src/pages/api/keystatic/[...params].ts.
+function keystaticUIOnly() {
+  const base = keystatic();
+  const originalSetup = base.hooks["astro:config:setup"];
+  return {
+    ...base,
+    hooks: {
+      ...base.hooks,
+      "astro:config:setup": (params) => {
+        const realInject = params.injectRoute;
+        params.injectRoute = (route) => {
+          if (route.pattern === "/api/keystatic/[...params]") return;
+          return realInject(route);
+        };
+        return originalSetup(params);
+      },
+    },
+  };
+}
+
 export default defineConfig({
   integrations: [
     tailwind(),
@@ -21,7 +43,7 @@ export default defineConfig({
     }),
     mdx(),
     react(),
-    ...(isDev || enableKeystaticInProd ? [keystatic()] : []),
+    ...(isDev || enableKeystaticInProd ? [keystaticUIOnly()] : []),
   ],
   site: "https://alexisabel.com",
   output: "hybrid",
