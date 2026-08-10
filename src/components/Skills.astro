@@ -85,10 +85,7 @@ const OTHER = [
             target="_blank"
             rel="noopener noreferrer"
             class="text-ink-muted hover:text-accent underline decoration-hairline underline-offset-4 hover:decoration-accent transition-colors"
-          >
-            {item.name}
-          </a>
-          {i < OTHER.length - 1 ? ", " : "."}
+          >{item.name}</a>{i < OTHER.length - 1 ? ", " : "."}
         </>
       ))
     }
