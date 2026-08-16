@@ -12,6 +12,7 @@ import TailwindIcon from "./icons/TailwindIcon.astro";
 import SpringIcon from "./icons/SpringIcon.astro";
 import NextJSIcon from "./icons/NextJSIcon.astro";
 import TSIcon from "./icons/TSIcon.astro";
+import AstroIcon from "./icons/AstroIcon.astro";
 
 const TAGS = {
   REACT: { name: "React", icon: ReactIcon },
@@ -25,16 +26,18 @@ const TAGS = {
   SPRING: { name: "Spring", icon: SpringIcon },
   NEXT: { name: "Next.js", icon: NextJSIcon },
   TS: { name: "TypeScript", icon: TSIcon },
+  ASTRO: { name: "Astro", icon: AstroIcon },
 };
 
 const PROJECTS = [
   {
-    title: "Excertia",
+    title: "Fdo.",
     description:
-      "Plataforma SaaS para registro y búsqueda de empresas con sistemas de gestión certificados. Stack: Next.js 15, React 19, Supabase, Stripe, Resend.",
-    image: "/excertia.png",
-    tags: [TAGS.NEXT, TAGS.REACT],
-    status: "en desarrollo",
+      "Firma varios PDFs de una vez sin que los archivos salgan del navegador: no hay servidor al que subirlos. La firma se coloca anclada a un texto del documento (por ejemplo «Fdo.»), se aplica en lote a toda la lista y puede completarse con certificado digital a través de AutoFirma. Astro, React, TypeScript, pdf-lib y pdf.js.",
+    github: "https://github.com/alexisabels/firmas",
+    link: "https://firmas.alexisabel.com/",
+    image: "/firmado.png",
+    tags: [TAGS.ASTRO, TAGS.REACT, TAGS.TS],
   },
   {
     title: "Plataforma de cumplimiento normativo",
@@ -43,6 +46,14 @@ const PROJECTS = [
     image: "/cumplimiento.png",
     tags: [TAGS.REACT, TAGS.TS],
     status: "privado",
+  },
+  {
+    title: "Excertia",
+    description:
+      "Plataforma SaaS para registro y búsqueda de empresas con sistemas de gestión certificados. Stack: Next.js 15, Supabase, Stripe, Resend.",
+    image: "/excertia.png",
+    tags: [TAGS.NEXT],
+    status: "en desarrollo",
   },
   {
     title: "Carburantes",
