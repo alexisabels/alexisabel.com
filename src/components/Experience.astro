@@ -9,9 +9,10 @@ const JOBS = [
       "Desarrollo de soluciones de administración electrónica para la Dirección General de Digitalización e Inteligencia Artificial de Castilla-La Mancha. Diseño e integro agentes de IA en el ciclo de vida del desarrollo.",
     href: "https://agenciatd.castillalamancha.es/",
     hrefLabel: "agenciatd.castillalamancha.es",
-    logo: "/logos/jccm.png",
-    logoDark: "/logos/jccm-dark.svg",
-    logoAlt: "Logo Junta de Comunidades de Castilla-La Mancha",
+    logo: "/logos/atd.svg",
+    logoDark: "/logos/atd-dark.svg",
+    logoAlt: "Logo Agencia de Transformación Digital de Castilla-La Mancha",
+    logoBox: "h-16 md:h-[4.5rem] w-40 md:w-48",
   },
   {
     company: "Delógica (Santander US)",
@@ -58,7 +59,12 @@ const JOBS = [
     JOBS.map((job) => (
       <li class="grid grid-cols-12 gap-4 md:gap-8 py-10 md:py-12 border-b border-hairline">
         <div class="col-span-12 md:col-span-3 flex md:flex-col gap-4 md:gap-4 items-start">
-          <div class="flex items-center justify-start h-12 md:h-14 w-32 md:w-40 shrink-0">
+          <div
+            class:list={[
+              "flex items-center justify-start shrink-0",
+              job.logoBox || "h-12 md:h-14 w-32 md:w-40",
+            ]}
+          >
             <img
               src={job.logo}
               alt={job.logoAlt}
