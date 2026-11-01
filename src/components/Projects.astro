@@ -14,6 +14,7 @@ import NextJSIcon from "./icons/NextJSIcon.astro";
 import TSIcon from "./icons/TSIcon.astro";
 import AstroIcon from "./icons/AstroIcon.astro";
 import AngularIcon from "./icons/AngularIcon.astro";
+import AngularIcon from "./icons/AngularIcon.astro";
 
 const TAGS = {
   REACT: { name: "React", icon: ReactIcon },
@@ -29,6 +30,7 @@ const TAGS = {
   TS: { name: "TypeScript", icon: TSIcon },
   ASTRO: { name: "Astro", icon: AstroIcon },
   ANGULAR: { name: "Angular", icon: AngularIcon },
+  ANGULAR: { name: "Angular", icon: AngularIcon },
 };
 
 const PROJECTS = [
@@ -42,9 +44,9 @@ const PROJECTS = [
     tags: [TAGS.ASTRO, TAGS.REACT, TAGS.TS],
   },
   {
-    title: "Plataforma de cumplimiento normativo",
+    title: "Portal de cumplimiento normativo",
     description:
-      "Sistema interno para una organización con varios centros. Descompone las normativas que le aplican en obligaciones concretas, las asigna a los centros que correspondan, gestiona las auditorías asociadas y permite consultar el estado de cumplimiento por centro o de toda la organización. Angular, TypeScript, Tailwind, Supabase.",
+      "SaaS multitenant para gestionar el cumplimiento normativo. Cada cliente tiene su propio subdominio y sus datos aislados en un schema de PostgreSQL con RLS. Desglosa las normativas en obligaciones por centro y muestra el estado de cumplimiento. Angular, TypeScript, Tailwind, Supabase.",
     image: "/cumplimiento.png",
     tags: [TAGS.ANGULAR, TAGS.TS, TAGS.TAILWIND],
     status: "privado",
