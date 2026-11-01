@@ -13,6 +13,7 @@ import SpringIcon from "./icons/SpringIcon.astro";
 import NextJSIcon from "./icons/NextJSIcon.astro";
 import TSIcon from "./icons/TSIcon.astro";
 import AstroIcon from "./icons/AstroIcon.astro";
+import AngularIcon from "./icons/AngularIcon.astro";
 
 const TAGS = {
   REACT: { name: "React", icon: ReactIcon },
@@ -27,6 +28,7 @@ const TAGS = {
   NEXT: { name: "Next.js", icon: NextJSIcon },
   TS: { name: "TypeScript", icon: TSIcon },
   ASTRO: { name: "Astro", icon: AstroIcon },
+  ANGULAR: { name: "Angular", icon: AngularIcon },
 };
 
 const PROJECTS = [
@@ -42,9 +44,9 @@ const PROJECTS = [
   {
     title: "Plataforma de cumplimiento normativo",
     description:
-      "Sistema interno para una organización con varios centros. Descompone las normativas que le aplican en obligaciones concretas, las asigna a los centros que correspondan, gestiona las auditorías asociadas y permite consultar el estado de cumplimiento por centro o de toda la organización. React, TypeScript, Material UI, Supabase.",
+      "Sistema interno para una organización con varios centros. Descompone las normativas que le aplican en obligaciones concretas, las asigna a los centros que correspondan, gestiona las auditorías asociadas y permite consultar el estado de cumplimiento por centro o de toda la organización. Angular 22 (standalone, signals, zoneless), TypeScript estricto, Tailwind CSS v4 con design system propio estilo GOV.UK/DESY, Transloco, TanStack Query, Supabase (PostgreSQL, Auth, RLS, edge functions) y Vitest.",
     image: "/cumplimiento.png",
-    tags: [TAGS.REACT, TAGS.TS],
+    tags: [TAGS.ANGULAR, TAGS.TS, TAGS.TAILWIND],
     status: "privado",
   },
   {
